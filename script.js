@@ -80,8 +80,6 @@ Stimulus.register("tablizer", class extends Controller {
         checkbox.dataset.indexes = JSON.stringify([evt_idx,ins_idx])
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
-        checkbox.dataset.controller = "checker"
-        checkbox.dataset.action = 'click->checker#toggle'
         cell.appendChild(checkbox)
         row.appendChild(cell)
       }
