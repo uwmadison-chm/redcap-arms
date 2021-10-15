@@ -42,34 +42,9 @@
         REDCap Event Arm Thingy
       </h1>
       <div class="armtable">
-        <div id = "armbuttons" data-target="">
+        <div id = "armbuttons">
         </div>
         <table id="thingtable">
-          <tr>
-            <th></th>
-            <th>Screening</th>
-            <th>Baseline</th>
-            <th>PW1</th>
-          </tr>
-          <tr>
-            <th>Welcome</th>
-            <td><input type="checkbox" id="ck_0_0" checked></td>
-            <td><input type="checkbox" id="ck_0_1"></td>
-            <td><input type="checkbox" id="ck_0_2"></td>
-          </tr>
-          <tr>
-            <th>Screening</th>
-            <td><input type="checkbox" id="ck_1_0" checked></td>
-            <td><input type="checkbox" id="ck_1_1"></td>
-            <td><input type="checkbox" id="ck_1_2"></td>
-          </tr>
-          <tr>
-            <th>Survey intro</th>
-            <td><input type="checkbox" id="ck_2_0"></td>
-            <td><input type="checkbox" id="ck_2_1" checked></td>
-            <td><input type="checkbox" id="ck_2_2" checked></td>
-          </tr>
-
         </table>
       </div>
       
@@ -80,10 +55,11 @@
           </label>
           <textarea id="arm_list"
                     name="arm_list"
-                    data-controller="listbox arm-updater"
+                    data-controller="listbox arm-updater tablizer"
                     data-action="change->listbox#update change->arm-updater#update"
                     data-param="arms"
                     data-radiocontainer="armbuttons"
+                    data=
                     ></textarea>
         </div>
         <div class="event_input">
@@ -92,7 +68,7 @@
           </label>
           <textarea id="event_list"
                     name="event_list"
-                    data-controller="listbox"
+                    data-controller="listbox tablizer"
                     data-action="change->listbox#update"
                     data-param="events"
                     ></textarea>
@@ -105,7 +81,7 @@
           <textarea
                     id="instrument_list"
                     name="instrument_list"
-                    data-controller="listbox"
+                    data-controller="listbox tablizer"
                     data-action="change->listbox#update"
                     data-param="instruments"
                     ></textarea>

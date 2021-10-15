@@ -54,7 +54,13 @@ Stimulus.register("listbox", class extends Controller {
 })
 
 Stimulus.register("tablizer", class extends Controller {
+  connect() {
+    console.log("tablizer is here")
+  }
   
+  build_table() {
+    console.log("BUILDING A TABLE")
+  }
 })
 
 
