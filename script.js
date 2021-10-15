@@ -77,7 +77,7 @@ Stimulus.register("tablizer", class extends Controller {
         cell = document.createElement('td')
         let checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
-        checkbox.dataset.indexes = JSON.stringify([evt_idxins_idx}]`
+        checkbox.dataset.indexes = JSON.stringify([evt_idx,ins_idx])
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
         checkbox.dataset.controller = "checker"
@@ -112,8 +112,12 @@ Stimulus.register("checker", class extends Controller {
   }
   
   store_checked_values() {
-    
-  }
+    const table = this.element.closest('table');
+    let all_checked = table.querySelelectorAll(':checked')
+    all_indexes = all_checked.map(elt => elt.dataset.indexes)
+    index_str = `[${all_indexes.join(',')}]`
+    const url = new URL(window.location)
+    url.searchParams.set()
 })
 
 
