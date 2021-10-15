@@ -11,7 +11,7 @@ Stimulus.register("hello", class extends Controller {
   }
 })
 
-Stimulus.register("splitter", class extends Controller {
+Stimulus.register("listbox", class extends Controller {
   
   static targets = []
   
