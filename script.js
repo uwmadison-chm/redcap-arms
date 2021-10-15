@@ -67,6 +67,22 @@ Stimulus.register("tablizer", class extends Controller {
     const events = url.searchParams.get('events').split(',')
     const instruments = url.searchParams.get('instruments').split(',')
     table.appendChild(this.make_event_header(events))
+    
+    for(ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
+      let row = document.createElement('tr')
+      let cell = document.createElement('th')
+      cell.innerText = instruments[ins_idx]
+      row.appendChild(cell)
+      for (evt_idx = 0; evt_idx < instruments.length; evt_idx++) {
+        cell = document.createElement('td')
+        let checkbox = document.createElement('input')
+        checkbox.type = 'checkbox'
+        checkbox.dataset.event = evt_idx
+        checkbox.dataset.instrument = ins_idx
+        cell.appendChild(c)
+      }
+      table.appendChild(row)
+    }
   }
   
   make_event_header(events) {
@@ -79,8 +95,6 @@ Stimulus.register("tablizer", class extends Controller {
     }
     return row
   }
-  
-  make_instrument_row
 })
 
 
