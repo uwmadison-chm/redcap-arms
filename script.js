@@ -17,15 +17,18 @@ Stimulus.register("listbox", class extends Controller {
   
   connect() {
     console.log(`Reading from ${this.element.dataset.param}`)
-    const url = new URL(window.location);
-    const val_str = url.searchParams.get(this.element.dataset.param) || '';
+    const url = new URL(window.location)
+    const val_str = url.searchParams.get(this.element.dataset.param) || ''
     const values = val_str.split(",")
-    this.element.value = values.join("\n");
+    this.element.value = values.join("\n")
   }
   
   update() {
     const url = new URL(window.location);
-    const val_str = this.element.values
+    const val_str = this.element.value.split("\n").join(",")
+    console.log(`setting ${this.element.dataset.param} to ${val_str}`)
+    url.searchParams.set(this.element.dataset.param, val_str)
+    history.replaceState(url)
   }
 })
 
