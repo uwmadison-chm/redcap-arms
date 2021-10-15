@@ -11,6 +11,13 @@ Stimulus.register("hello", class extends Controller {
   }
 })
 
+Stimulus.register("splitter", class extends Controller {  
+  
+  connect() {
+    console.log("oh hai" + this.element)
+  }
+})
+
 
 // Stuff to turn arrays into reasonable-ish-length strings
 // maybe overkill
