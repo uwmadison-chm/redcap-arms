@@ -50,7 +50,7 @@
           <input type="radio" name="arm" id="arm_3" data-arm="Intervention">
           <label for="arm_3">Intervention</label>
         </div>
-        <table id="thingtable" data-controller="hello">
+        <table id="thingtable">
           <tr>
             <th></th>
             <th>Screening</th>
@@ -84,20 +84,36 @@
           <label for="arm_list">
             Arms
           </label>
-          <textarea id="arm_list" name="arm_list" data-contoller="splitter">hello</textarea>
+          <textarea id="arm_list"
+                    name="arm_list"
+                    data-controller="splitter"
+                    data-action="change->splitter#update"
+                    data-param="arms"
+                    >hello</textarea>
         </div>
         <div class="event_input">
           <label for="event_list">
             Events
           </label>
-          <textarea id="event_list" name="event_list" data-contoller="splitter">hello</textarea>
+          <textarea id="event_list"
+                    name="event_list"
+                    data-controller="splitter"
+                    data-action="change->splitter#update"
+                    data-param="events"
+                    >hello</textarea>
         </div>
 
         <div class="instrument_input">
           <label for="instrument_list">
             Instruments
           </label>
-          <textarea id="instrument_list" name="instrument_list" data-contoller="splitter">hello</textarea>
+          <textarea
+                    id="instrument_list"
+                    name="instrument_list"
+                    data-controller="splitter"
+                    data-action="change->splitter#update"
+                    data-param=""
+                    >hello</textarea>
         </div>
 
       </div>

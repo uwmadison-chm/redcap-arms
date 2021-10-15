@@ -11,10 +11,16 @@ Stimulus.register("hello", class extends Controller {
   }
 })
 
-Stimulus.register("splitter", class extends Controller {  
+Stimulus.register("splitter", class extends Controller {
+  
+  static targets = []
   
   connect() {
-    console.log("oh hai" + this.element)
+    console.log("oh hai" + this.element.value)
+  }
+  
+  update() {
+    console.log("updatessd")
   }
 })
 
