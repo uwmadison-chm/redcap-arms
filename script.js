@@ -12,7 +12,22 @@ Stimulus.register("hello", class extends Controller {
 })
 
 Stimulus.register("arm-updater", class extends Controller {
+  static targets = []
   
+  connect() {
+    console.log("Connected an arm updater")
+    this.update()
+  }
+  
+  update() {
+    console.log("Updating arms!")
+    const button_cont = document.getElementById(this.element.dataset.radiocontainer)
+    const arm_values = this.element.value.split("\n")
+    const arm_labels = arm_values.map((arm, i) => {
+      return `<input type="radio" value="${arm}" name="armradio" id="arm_${i}"> <label for="arm_${i}">`
+    })
+    button_cont.innerHTML = arm_labels.join(' ')
+  }
 })
 
 Stimulus.register("listbox", class extends Controller {
