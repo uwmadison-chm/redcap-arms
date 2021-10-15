@@ -28,7 +28,7 @@ Stimulus.register("listbox", class extends Controller {
     const val_str = this.element.value.split("\n").join(",")
     console.log(`setting ${this.element.dataset.param} to ${val_str}`)
     url.searchParams.set(this.element.dataset.param, val_str)
-    history.replaceState(url)
+    history.replaceState({}, '', url)
   }
 })
 
