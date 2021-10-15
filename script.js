@@ -25,7 +25,7 @@ Stimulus.register("arm-updater", class extends Controller {
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     console.log(arm_values)
     const arm_labels = arm_values.map((arm, i) => {
-      return `<input type="radio" value="${arm}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
+      return `<input type="radio" value="${i}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
     })
     
     button_cont.innerHTML = arm_labels.join(' ')
@@ -46,7 +46,7 @@ Stimulus.register("listbox", class extends Controller {
   
   update() {
     const url = new URL(window.location);
-    const val_str = this.element.value.split("\n").join(",")
+    const val_str = this.element.value.trim().split("\n").join(",")
     console.log(`setting ${this.element.dataset.param} to ${val_str}`)
     url.searchParams.set(this.element.dataset.param, val_str)
     history.replaceState({}, '', url)
@@ -68,18 +68,20 @@ Stimulus.register("tablizer", class extends Controller {
     const instruments = url.searchParams.get('instruments').split(',')
     table.appendChild(this.make_event_header(events))
     
-    for(ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
+    for(let ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
       let row = document.createElement('tr')
       let cell = document.createElement('th')
       cell.innerText = instruments[ins_idx]
       row.appendChild(cell)
-      for (evt_idx = 0; evt_idx < instruments.length; evt_idx++) {
+      for (let evt_idx = 0; evt_idx < events.length; evt_idx++) {
         cell = document.createElement('td')
         let checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
-        cell.appendChild(c)
+        checkbox.dataset.controller = "checker"
+        cell.appendChild(checkbox)
+        row.appendChild(cell)
       }
       table.appendChild(row)
     }
@@ -96,6 +98,14 @@ Stimulus.register("tablizer", class extends Controller {
     return row
   }
 })
+
+Stimulus.register("checker", class extends Controller {
+  connect() {
+    console.log("It's-a-me!")
+  }
+})
+
+
 
 
 // Stuff to turn arrays into reasonable-ish-length strings

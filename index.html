@@ -69,7 +69,7 @@
           <textarea id="event_list"
                     name="event_list"
                     data-controller="listbox tablizer"
-                    data-action="change->listbox#update"
+                    data-action="change->listbox#update change->tablizer#build_table"
                     data-param="events"
                     data-tableid="mapping_table"
                     ></textarea>
@@ -83,7 +83,7 @@
                     id="instrument_list"
                     name="instrument_list"
                     data-controller="listbox tablizer"
-                    data-action="change->listbox#update"
+                    data-action="change->listbox#update change->tablizer#build_table"
                     data-param="instruments"
                     data-tableid="mapping_table"
                     ></textarea>
