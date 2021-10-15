@@ -32,19 +32,9 @@
     <link rel="stylesheet" href="/style.css" />
 
     <script type="module">
-    import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
-    window.Stimulus = Application.start()
-
-    Stimulus.register("hello", class extends Controller {
-      static targets = [ "name" ]
-
-      connect() {
-        console.log("I connected yo");
-      }
-    })
     </script>
     <!-- Import the webpage's javascript file -->
-    <script src="/script.js" defer></script>
+    <script src="/script.js" defer type="module"></script>
   </head>
   <body>
     <div class="wrapper">
