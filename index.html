@@ -43,12 +43,6 @@
       </h1>
       <div class="armtable">
         <div id = "armbuttons">
-          <input type="radio" name="arm" id="arm_1" data-arm="All">
-          <label for="arm_1">All</label>
-          <input type="radio" name="arm" id="arm_2" data-arm="Control">
-          <label for="arm_2">Control</label>
-          <input type="radio" name="arm" id="arm_3" data-arm="Intervention">
-          <label for="arm_3">Intervention</label>
         </div>
         <table id="thingtable">
           <tr>
@@ -87,7 +81,7 @@
           <textarea id="arm_list"
                     name="arm_list"
                     data-controller="listbox arm-updater"
-                    data-action="change->listbox#update"
+                    data-action="change->listbox#update change->arm-updater#update"
                     data-param="arms"
                     data-radiocontainer="armbuttons"
                     ></textarea>
