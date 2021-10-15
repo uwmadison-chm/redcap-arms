@@ -11,6 +11,10 @@ Stimulus.register("hello", class extends Controller {
   }
 })
 
+Stimulus.register("arm-updater", class extends Controller {
+  
+})
+
 Stimulus.register("listbox", class extends Controller {
   
   static targets = []
