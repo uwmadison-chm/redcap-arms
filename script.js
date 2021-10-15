@@ -77,9 +77,11 @@ Stimulus.register("tablizer", class extends Controller {
         cell = document.createElement('td')
         let checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
+        checkbox.dataset.indexes = JSON.stringify([evt_idxins_idx}]`
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
         checkbox.dataset.controller = "checker"
+        checkbox.dataset.action = 'click->checker#toggle'
         cell.appendChild(checkbox)
         row.appendChild(cell)
       }
@@ -102,6 +104,15 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
+  }
+  
+  toggle() {
+    console.log('toggling')
+    this.store_checked_values()
+  }
+  
+  store_checked_values() {
+    
   }
 })
 
