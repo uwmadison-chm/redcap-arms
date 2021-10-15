@@ -22,7 +22,8 @@ Stimulus.register("arm-updater", class extends Controller {
   update() {
     console.log("Updating arms!")
     const button_cont = document.getElementById(this.element.dataset.radiocontainer)
-    const arm_values = this.element.value.trim().split("\n")
+    const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
+    console.log(arm_values)
     const arm_labels = arm_values.map((arm, i) => {
       return `<input type="radio" value="${arm}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
     })
@@ -50,6 +51,10 @@ Stimulus.register("listbox", class extends Controller {
     url.searchParams.set(this.element.dataset.param, val_str)
     history.replaceState({}, '', url)
   }
+})
+
+Stimulus.register("tablizer", class extends Controller {
+  
 })
 
 
