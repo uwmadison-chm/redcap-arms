@@ -16,7 +16,9 @@ Stimulus.register("listbox", class extends Controller {
   static targets = []
   
   connect() {
-    console.log("oh hai" + this.element.value)
+    console.log(`Reading from ${this.element.dataset.param}`)
+    const url = new URL(window.location);
+    console.log(url.searchParams.get(this.element.dataset.param));
   }
   
   update() {
