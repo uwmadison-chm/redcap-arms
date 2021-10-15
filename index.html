@@ -35,8 +35,51 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <h1>
-      REDCap Event Arm Thingy
-    </h1>
+    <div class="wrapper">
+      <h1>
+        REDCap Event Arm Thingy
+      </h1>
+      <div class="armtable">
+        <div class"armbuttons">
+          <button data-arm="All">
+            All
+          </button>
+          <button data-arm="Control">
+            Control
+          </button>
+          <button data-arm="Intervention">
+            Intervention
+          </button>
+        </div>
+        <table id="thingtable">
+          <tr>
+            <th></th>
+            <th>Screening</th>
+            <th>Baseline</th>
+            <th>PW1</th>
+          </tr>
+          <tr>
+            <th>Welcome</th>
+            <td><input type="checkbox" id="ck_0_0" checked></td>
+            <td><input type="checkbox" id="ck_0_1"></td>
+            <td><input type="checkbox" id="ck_0_2"></td>
+          </tr>
+          <tr>
+            <th>Screening</th>
+            <td><input type="checkbox" id="ck_1_0"></td>
+            <td><input type="checkbox" id="ck_1_1"></td>
+            <td><input type="checkbox" id="ck_1_2"></td>
+          </tr>
+          <tr>
+            <th>Survey intro</th>
+            <td><input type="checkbox" id="ck_2_0"></td>
+            <td><input type="checkbox" id="ck_2_1"></td>
+            <td><input type="checkbox" id="ck_2_2"></td>
+          </tr>
+
+        </table>
+      </div>
+      
+    </div>
   </body>
 </html>
