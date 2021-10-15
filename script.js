@@ -56,10 +56,16 @@ Stimulus.register("listbox", class extends Controller {
 Stimulus.register("tablizer", class extends Controller {
   connect() {
     console.log("tablizer is here")
+    this.build_table()
   }
   
   build_table() {
     console.log("BUILDING A TABLE")
+    const table = document.getElementById(this.element.dataset.tableid)
+    table.innerHTML = ''
+    const url = new URL(window.location);
+    const events = url.
+    
   }
 })
 

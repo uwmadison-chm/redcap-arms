@@ -44,7 +44,7 @@
       <div class="armtable">
         <div id = "armbuttons">
         </div>
-        <table id="thingtable">
+        <table id="mapping_table">
         </table>
       </div>
       
@@ -59,7 +59,7 @@
                     data-action="change->listbox#update change->arm-updater#update"
                     data-param="arms"
                     data-radiocontainer="armbuttons"
-                    data=
+                    data-tableid="mapping_table"
                     ></textarea>
         </div>
         <div class="event_input">
@@ -71,6 +71,7 @@
                     data-controller="listbox tablizer"
                     data-action="change->listbox#update"
                     data-param="events"
+                    data-tableid="mapping_table"
                     ></textarea>
         </div>
 
@@ -84,6 +85,7 @@
                     data-controller="listbox tablizer"
                     data-action="change->listbox#update"
                     data-param="instruments"
+                    data-tableid="mapping_table"
                     ></textarea>
         </div>
 
