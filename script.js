@@ -64,9 +64,23 @@ Stimulus.register("tablizer", class extends Controller {
     const table = document.getElementById(this.element.dataset.tableid)
     table.innerHTML = ''
     const url = new URL(window.location);
-    const events = url.
-    
+    const events = url.searchParams.get('events').split(',')
+    const instruments = url.searchParams.get('instruments').split(',')
+    table.appendChild(this.make_event_header(events))
   }
+  
+  make_event_header(events) {
+    let row = document.createElement('tr')
+    row.appendChild(document.createElement('th'))
+    for(let ei = 0; ei < events.length; ei++) {
+      let cell = document.createElement('th')
+      cell.innerText = events[ei]
+      row.appendChild(cell)
+    }
+    return row
+  }
+  
+  make_instrument_row
 })
 
 
