@@ -41,15 +41,12 @@
       </h1>
       <div class="armtable">
         <div class"armbuttons">
-          <button data-arm="All">
-            All
-          </button>
-          <button data-arm="Control">
-            Control
-          </button>
-          <button data-arm="Intervention">
-            Intervention
-          </button>
+          <input type="radio" name="arm" id="arm_1" data-arm="All">
+          <label for="arm_1">All</label>
+          <input type="radio" name="arm" id="arm_2" data-arm="Control">
+          <label for="arm_2">Control</label>
+          <input type="radio" name="arm" id="arm_3" data-arm="Intervention">
+          <label for="arm_3">Intervention</label>
         </div>
         <table id="thingtable">
           <tr>
@@ -66,15 +63,15 @@
           </tr>
           <tr>
             <th>Screening</th>
-            <td><input type="checkbox" id="ck_1_0"></td>
+            <td><input type="checkbox" id="ck_1_0" checked></td>
             <td><input type="checkbox" id="ck_1_1"></td>
             <td><input type="checkbox" id="ck_1_2"></td>
           </tr>
           <tr>
             <th>Survey intro</th>
             <td><input type="checkbox" id="ck_2_0"></td>
-            <td><input type="checkbox" id="ck_2_1"></td>
-            <td><input type="checkbox" id="ck_2_2"></td>
+            <td><input type="checkbox" id="ck_2_1" checked></td>
+            <td><input type="checkbox" id="ck_2_2" checked></td>
           </tr>
 
         </table>
