@@ -24,11 +24,36 @@ Stimulus.register("arm-updater", class extends Controller {
     const button_cont = document.getElementById(this.element.dataset.radiocontainer)
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     console.log(arm_values)
-    const arm_labels = arm_values.map((arm, i) => {
-      return `<input type="radio" value="${i}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
-    })
+    for (const [i, arm] of arm_values.entries()) {
+      console.log(i)
+      console.log(arm)
+      let radio = document.createElement('input')
+      radio.type = 'radio'
+      radio.name = 'armradio'
+      radio.id = `arm_${i}`
+      let label = document.createElement('label')
+      label.setAttribute('for', radio.id)
+      label.innerText = arm
+      button_cont.appendChild(radio)
+      button_cont.appendChild(label)
+    }
+    // const arm_labels = arm_values.map((arm, i) => {
+    //   return `<input type="radio" value="${i}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
+    // })
     
-    button_cont.innerHTML = arm_labels.join(' ')
+    // button_cont.innerHTML = arm_labels.join(' ')
+  }
+})
+
+Stimulus.register("armradio", class extends Controller {
+  static targets = []
+  
+  connect() {
+    console.log('Connecting to an arm button')
+  }
+  
+  set_arm() {
+    
   }
 })
 
