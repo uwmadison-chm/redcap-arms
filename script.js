@@ -199,7 +199,10 @@ Stimulus.register("checker", class extends Controller {
   
   store_checked_values() {
     const table = this.element.closest('table')
-    checked = table.querySelectorAll('input[type=checkbox]:checked')
+    const checked = table.querySelectorAll('input[type=checkbox]:checked')
+    for (const elt of checked) {
+      console.log(elt)
+    }
   }
 })
 
