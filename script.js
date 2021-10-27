@@ -45,27 +45,11 @@ Stimulus.register("arm-updater", class extends Controller {
       button_cont.appendChild(radio)
       button_cont.appendChild(label)
     }
-    // const arm_labels = arm_values.map((arm, i) => {
-    //   return `<input type="radio" value="${i}" name="armradio" id="arm_${i}"> <label for="arm_${i}">${arm}</label>`
-    // })
-    
-    // button_cont.innerHTML = arm_labels.join(' ')
-  }
-})
-
-Stimulus.register("armradio", class extends Controller {
-  static targets = []
-  
-  connect() {
-    console.log('Connecting to an arm button')
-  }
-  
-  set_arm() {
-    
   }
 })
 
 Stimulus.register("urlsync", class extends Controller {
+  /* A controller to sync an input-
   
   static targets = []
   
