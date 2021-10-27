@@ -27,8 +27,9 @@ Stimulus.register("arm-updater", class extends Controller {
       radio.type = 'radio'
       radio.name = 'asel'
       radio.id = `arm_${i}`
-      radio.dataset.controller = 'urlsync'
-      radio.dataset.action = 'urlsync#update'
+      radio.dataset.controller = 'urlsync tablizer'
+      radio.dataset.action = 'urlsync#update tablizer#build_table'
+      radio.dataset.tableid = 'mapping_table'
       radio.value = arm
       let label = document.createElement('label')
       label.setAttribute('for', radio.id)
@@ -177,7 +178,7 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
-    
+    // Read the 
   }
   
   toggle() {
