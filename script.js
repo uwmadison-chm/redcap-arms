@@ -214,7 +214,16 @@ Stimulus.register("checker", class extends Controller {
   }
 })
 
-function generate_
+Stimulus.register("output", class extends Controller {
+  connect() {
+    console.log("haiiii")
+  }
+  
+  update() {
+    
+  }
+})
+
 
 
 /*\

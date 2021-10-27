@@ -89,20 +89,20 @@
 
       </div>
       
-      <div class="event_output">
-        <label for="events_output">
-          Output
-        </label>
-        <textarea id="events_output" name="events_output"></textarea>
-      </div>
-      <div class="mapping_output">
-        <label for="mapping_output">
-          Output
-        </label>
-        <textarea id="mapping_output" name="mapping_output"></textarea>
-      </div>
-
-      
+      <div class="outputs" data-controller="output" data-action="">
+        <div class="event_output">
+          <label for="events_output">
+            Events to upload
+          </label>
+          <textarea id="events_output" name="events_output"></textarea>
+        </div>
+        <div class="mapping_output">
+          <label for="mapping_output">
+            Instrument-event mappings to upload
+          </label>
+          <textarea id="mapping_output" name="mapping_output"></textarea>
+        </div>        
+      </div>      
     </div>
   </body>
 </html>
