@@ -35,6 +35,10 @@ Stimulus.register("arm-updater", class extends Controller {
       radio.type = 'radio'
       radio.name = 'armradio'
       radio.id = `arm_${i}`
+      radio.dataset.param = 'sel'
+      radio.dataset.controller = 'urlsync'
+      radio.dataset.action = 'urlsync#update'
+      radio.value = arm
       let label = document.createElement('label')
       label.setAttribute('for', radio.id)
       label.innerText = arm
@@ -66,15 +70,28 @@ Stimulus.register("urlsync", class extends Controller {
   static targets = []
   
   connect() {
-    console.log(`Reading from ${this.element.dataset.param}`)
-    let connect_fx = this.connect_for_element()
+    const connect_fx = this.connect_for_element()
     connect_fx(this.element)
+  }
+  
+  update() {
+    const update_fx = this.update_for_element()
+    update_fx(this.element)
   }
   
   connect_for_element() {
     const map = {
       'textarea': this.connect_textarea,
       'radio': this.connect_radio
+    }
+    const fx = map[this.input_type()] || this.noop()
+    return fx
+  }
+  
+  update_for_element() {
+    const map = {
+      'textarea': this.update_textarea,
+      'radio': this.update_radio
     }
     const fx = map[this.input_type()] || this.noop()
     return fx
@@ -89,23 +106,36 @@ Stimulus.register("urlsync", class extends Controller {
   
   connect_radio(element) {
     const url = new URL(window.location)
-    const val_str = url.searchParams.get(this.element.dataset.param) || ''
+    const val_str = url.searchParams.get(element.dataset.param) || ''
     if (element.value == val_str) {
-      element.setAttribute('checked', true)
+      element.checked = true
     } else {
-      element.removeAttribute('checked')
+      element.checked = false
     }
   }
   
-  noop() {}
-  
-  update() {
+  update_textarea(element) {    
     const url = new URL(window.location);
-    const val_str = this.element.value.trim().split("\n").join(",")
-    console.log(`setting ${this.element.dataset.param} to ${val_str}`)
-    url.searchParams.set(this.element.dataset.param, val_str)
+    const val_str = element.value.trim().split("\n").join(",")
+    console.log(`setting ${element.dataset.param} to ${val_str}`)
+    url.searchParams.set(element.dataset.param, val_str)
     history.replaceState({}, '', url)
   }
+  
+  update_radio(element) {
+    const url = new URL(window.location);
+    const parent = element.parentElement
+    const sel = parent.querySelector("input[type=radio]:checked")
+    let value = ""
+    if (sel) {
+      value = sel.value
+    }
+    console.log(`setting ${element.dataset.param} to ${value}`)
+    url.searchParams.set(element.dataset.param, value)
+    history.replaceState({}, '', url)
+  }
+  
+  noop() {}
   
   input_type() {
     let nodeName = this.element.nodeName.toLowerCase()
