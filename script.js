@@ -220,7 +220,7 @@ Stimulus.register("output", class extends Controller {
   }
   
   update() {
-    
+    console.log("Updating outputs!")
   }
 })
 
