@@ -67,12 +67,27 @@ Stimulus.register("urlsync", class extends Controller {
   
   connect() {
     console.log(`Reading from ${this.element.dataset.param}`)
-    console.log(this.element)
+    let connect_fx = this.connect_for_element()
+    
     const url = new URL(window.location)
     const val_str = url.searchParams.get(this.element.dataset.param) || ''
     const values = val_str.split(",")
     this.element.value = values.join("\n")
   }
+  
+  connect_for_element() {
+    
+  }
+  
+  connect_textarea() {
+    
+  }
+  
+  connect_radio() {
+    
+  }
+  
+  fx_noop() {}
   
   update() {
     const url = new URL(window.location);
@@ -82,7 +97,13 @@ Stimulus.register("urlsync", class extends Controller {
     history.replaceState({}, '', url)
   }
   
-  input_type(element) {}
+  input_type() {
+    let nodeName = this.element.nodeName.toLowerCase()
+    if (nodeName == 'input') {
+      return this.element.type
+    }
+    return nodeName
+  }
 })
 
 Stimulus.register("tablizer", class extends Controller {
