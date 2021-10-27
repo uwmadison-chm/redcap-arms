@@ -179,10 +179,17 @@ Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
     const url = new URL(window.location)
-    const my_arm = url.searchParams.get()
-    const val_str = url.searchParams.get(element.name) || ''
-
-    
+    const my_arm = url.searchParams.get('asel')
+    this.param = `arm[${my_arm}]`
+    const val_str = url.searchParams.get(this.param) || '[]'
+    const checked_ar = JSON.parse(val_str)
+    const my_idx = [this.element.dataset.event, this.element.dataset.instrument]
+    this.element.checked = false
+    for (const pair of checked_ar) {
+      if (my_idx == pair) {
+        this.element.checked = true
+      }
+    }
   }
   
   toggle() {
