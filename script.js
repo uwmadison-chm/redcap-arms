@@ -61,7 +61,7 @@ Stimulus.register("armradio", class extends Controller {
   }
 })
 
-Stimulus.register("listbox", class extends Controller {
+Stimulus.register("urlsync", class extends Controller {
   
   static targets = []
   
