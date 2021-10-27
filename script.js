@@ -68,7 +68,7 @@ Stimulus.register("urlsync", class extends Controller {
   connect() {
     console.log(`Reading from ${this.element.dataset.param}`)
     let connect_fx = this.connect_for_element()
-    connect_fx()
+    connect_fx(this.element)
   }
   
   connect_for_element() {
@@ -76,24 +76,28 @@ Stimulus.register("urlsync", class extends Controller {
       'textarea': this.connect_textarea,
       'radio': this.connect_radio
     }
-    console.log(this.input_type())
-    return map[this.input_type()]
+    const fx = map[this.input_type()] || this.noop()
+    return fx
   }
   
   connect_textarea(element) {
-    console.log(ctx)
     const url = new URL(window.location)
-    const val_str = url.searchParams.get(this.element.dataset.param) || ''
+    const val_str = url.searchParams.get(element.dataset.param) || ''
     const values = val_str.split(",")
-    ctx.element.value = values.join("\n")
+    element.value = values.join("\n")
   }
   
-  connect_radio() {
+  connect_radio(element) {
     const url = new URL(window.location)
     const val_str = url.searchParams.get(this.element.dataset.param) || ''
+    if (element.value == val_str) {
+      element.setAttribute('checked', true)
+    } else {
+      element.removeAttribute('checked')
+    }
   }
   
-  fx_noop() {}
+  noop() {}
   
   update() {
     const url = new URL(window.location);
