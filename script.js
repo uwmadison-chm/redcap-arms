@@ -67,6 +67,7 @@ Stimulus.register("urlsync", class extends Controller {
   
   connect() {
     console.log(`Reading from ${this.element.dataset.param}`)
+    console.log(this.element)
     const url = new URL(window.location)
     const val_str = url.searchParams.get(this.element.dataset.param) || ''
     const values = val_str.split(",")
@@ -80,6 +81,8 @@ Stimulus.register("urlsync", class extends Controller {
     url.searchParams.set(this.element.dataset.param, val_str)
     history.replaceState({}, '', url)
   }
+  
+  input_type(element) {}
 })
 
 Stimulus.register("tablizer", class extends Controller {
