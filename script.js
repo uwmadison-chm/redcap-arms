@@ -22,6 +22,7 @@ Stimulus.register("arm-updater", class extends Controller {
   update() {
     console.log("Updating arms!")
     const button_cont = document.getElementById(this.element.dataset.radiocontainer)
+    button_cont.innerHTML = ''
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     const url = new URL(window.location)
     const a_str = url.searchParams.get(this.element.dataset.param) || ''
