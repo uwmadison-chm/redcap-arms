@@ -178,7 +178,11 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
-    // Read the 
+    const url = new URL(window.location)
+    const my_arm = url.searchParams.get()
+    const val_str = url.searchParams.get(element.name) || ''
+
+    
   }
   
   toggle() {
