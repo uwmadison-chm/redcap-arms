@@ -141,7 +141,7 @@ Stimulus.register("tablizer", class extends Controller {
     const events = url.searchParams.get('es').split(',')
     const instruments = url.searchParams.get('is').split(',')
     table.appendChild(this.make_event_header(events))
-    
+    let flat_idx = 0;
     for(let ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
       let row = document.createElement('tr')
       let cell = document.createElement('th')
@@ -151,13 +151,14 @@ Stimulus.register("tablizer", class extends Controller {
         cell = document.createElement('td')
         let checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
-        checkbox.dataset.indexes = JSON.stringify([evt_idx,ins_idx])
+        checkbox.dataset.index = flat_idx
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
         checkbox.dataset.controller = 'checker'
         checkbox.dataset.action = 'click->checker#toggle'
         cell.appendChild(checkbox)
         row.appendChild(cell)
+        flat_idx++
       }
       table.appendChild(row)
     }
@@ -178,19 +179,20 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
-    const url = new URL(window.location)
-    const my_arm = url.searchParams.get('asel')
-    this.param = `arm[${my_arm}]`
-    const val_str = url.searchParams.get(this.param) || '[]'
-    const checked_ar = JSON.parse(val_str)
-    console.log(checked_ar)
-    const my_idx = JSON.parse(this.element.dataset.indexes)
-    this.element.checked = false
-    for (const pair of checked_ar) {
-      if (my_idx == pair) {
-        this.element.checked = true
-      }
-    }
+    // const url = new URL(window.location)
+    // const my_arm = url.searchParams.get('asel')
+    // this.param = `arm[${my_arm}]`
+    // const val_str = url.searchParams.get(this.param) || '[]'
+    // const checked_ar = JSON.parse(val_str)
+    // console.log(checked_ar)
+    // const my_idx = JSON.parse(this.element.dataset.indexes)
+    // this.element.checked = false
+    // for (const pair of checked_ar) {
+    //   console.log(`mine: ${my_idx}, pair: ${pair}, equal: ${my_idx === pair}`)
+    //   if (my_idx == pair) {
+    //     this.element.checked = true
+    //   }
+    // }
   }
   
   toggle() {
@@ -212,8 +214,6 @@ Stimulus.register("checker", class extends Controller {
     history.replaceState({}, '', url)
   }
 })
-
-
 
 
 // Stuff to turn arrays into reasonable-ish-length strings
