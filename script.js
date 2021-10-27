@@ -3,14 +3,6 @@
 import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
 window.Stimulus = Application.start()
 
-Stimulus.register("hello", class extends Controller {
-  static targets = [ "name" ]
-
-  connect() {
-    console.log("I connected yo");
-  }
-})
-
 Stimulus.register("arm-updater", class extends Controller {
   static targets = []
   
@@ -33,9 +25,8 @@ Stimulus.register("arm-updater", class extends Controller {
       console.log(arm)
       let radio = document.createElement('input')
       radio.type = 'radio'
-      radio.name = 'armradio'
+      radio.name = 'asel'
       radio.id = `arm_${i}`
-      radio.dataset.param = 'sel'
       radio.dataset.controller = 'urlsync'
       radio.dataset.action = 'urlsync#update'
       radio.value = arm
@@ -49,7 +40,12 @@ Stimulus.register("arm-updater", class extends Controller {
 })
 
 Stimulus.register("urlsync", class extends Controller {
-  /* A controller to sync an input-
+  /* 
+  A controller to sync an input-style element with a URL parameter.
+  URL parameter is set by the name of the input.
+  Currently works with textarea and radio inputs.
+  */
+  
   
   static targets = []
   
@@ -83,14 +79,14 @@ Stimulus.register("urlsync", class extends Controller {
   
   connect_textarea(element) {
     const url = new URL(window.location)
-    const val_str = url.searchParams.get(element.dataset.param) || ''
+    const val_str = url.searchParams.get(element.name) || ''
     const values = val_str.split(",")
     element.value = values.join("\n")
   }
   
   connect_radio(element) {
     const url = new URL(window.location)
-    const val_str = url.searchParams.get(element.dataset.param) || ''
+    const val_str = url.searchParams.get(element.name) || ''
     if (element.value == val_str) {
       element.checked = true
     } else {
@@ -101,8 +97,8 @@ Stimulus.register("urlsync", class extends Controller {
   update_textarea(element) {    
     const url = new URL(window.location);
     const val_str = element.value.trim().split("\n").join(",")
-    console.log(`setting ${element.dataset.param} to ${val_str}`)
-    url.searchParams.set(element.dataset.param, val_str)
+    console.log(`setting ${element.name} to ${val_str}`)
+    url.searchParams.set(element.name, val_str)
     history.replaceState({}, '', url)
   }
   
@@ -114,8 +110,8 @@ Stimulus.register("urlsync", class extends Controller {
     if (sel) {
       value = sel.value
     }
-    console.log(`setting ${element.dataset.param} to ${value}`)
-    url.searchParams.set(element.dataset.param, value)
+    console.log(`setting ${element.name} to ${value}`)
+    url.searchParams.set(element.name, value)
     history.replaceState({}, '', url)
   }
   
@@ -141,8 +137,8 @@ Stimulus.register("tablizer", class extends Controller {
     const table = document.getElementById(this.element.dataset.tableid)
     table.innerHTML = ''
     const url = new URL(window.location);
-    const events = url.searchParams.get('events').split(',')
-    const instruments = url.searchParams.get('instruments').split(',')
+    const events = url.searchParams.get('es').split(',')
+    const instruments = url.searchParams.get('is').split(',')
     table.appendChild(this.make_event_header(events))
     
     for(let ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
@@ -181,6 +177,7 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
+    
   }
   
   toggle() {
@@ -189,12 +186,8 @@ Stimulus.register("checker", class extends Controller {
   }
   
   store_checked_values() {
-    // const table = this.element.closest('table');
-    // let all_checked = table.querySelelectorAll(':checked')
-    // all_indexes = all_checked.map(elt => elt.dataset.indexes)
-    // index_str = `[${all_indexes.join(',')}]`
-    // const url = new URL(window.location)
-    // url.searchParams.set()
+    const table = this.element.closest('table')
+    checked = table.querySelectorAll('input[type=checkbox]:checked')
   }
 })
 
