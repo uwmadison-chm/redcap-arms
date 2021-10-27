@@ -184,18 +184,15 @@ Stimulus.register("checker", class extends Controller {
     this.param = `arm[${my_arm}]`
     const b64_arr = url.searchParams.get(this.param) || ''
     const checked_indexes = b64ToUint16(b64_arr)
-    const my_index = this.element.dataset.index + 0
+    console.log(`Found checked indexes: ${checked_indexes}`)
+    const my_index = parseInt(this.element.dataset.index)
     
-    // const checked_ar = JSON.parse(val_str)
-    // console.log(checked_ar)
-    // const my_idx = JSON.parse(this.element.dataset.indexes)
-    // this.element.checked = false
-    // for (const pair of checked_ar) {
-    //   console.log(`mine: ${my_idx}, pair: ${pair}, equal: ${my_idx === pair}`)
-    //   if (my_idx == pair) {
-    //     this.element.checked = true
-    //   }
-    // }
+    this.element.checked = false
+    for (const cidx of checked_indexes) {
+      if (my_index === cidx) {
+        this.element.checked = true
+      }
+    }
   }
   
   toggle() {
@@ -207,13 +204,12 @@ Stimulus.register("checker", class extends Controller {
     const url = new URL(window.location)
 
     const table = this.element.closest('table')
-    const checked = table.querySelectorAll('input[type=checkbox]:checked')
-    let checked_ar = []
-    for (const elt of checked) {
-      console.log(elt)
-      checked_ar.push(JSON.parse(elt.dataset.indexes))
-    }
-    url.searchParams.set(this.param, JSON.stringify(checked_ar))
+    const checked = Array.from(table.querySelectorAll('input[type=checkbox]:checked'))
+    const checked_ar = checked.map(e => e.dataset.index)
+    console.log(`checked indexes: ${checked_ar}`)
+    const typed_ar = Uint16Array.from(checked_ar)
+    
+    url.searchParams.set(this.param, Uint16Tob64(typed_ar))
     history.replaceState({}, '', url)
   }
 })
@@ -237,7 +233,7 @@ function Uint16Tob64(ar) {
 }
 
 function b64ToUint16(str) {
-  return new Uint16Array(base64DecToArr(str).buffer)
+  return new Uint16Array(base64DecToArr(str, 2).buffer)
 }
 
 function b64ToUint6 (nChr) {
