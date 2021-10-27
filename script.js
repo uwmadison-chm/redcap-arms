@@ -179,10 +179,10 @@ Stimulus.register("tablizer", class extends Controller {
 Stimulus.register("checker", class extends Controller {
   connect() {
     console.log("It's-a-me!")
-    // const url = new URL(window.location)
-    // const my_arm = url.searchParams.get('asel')
-    // this.param = `arm[${my_arm}]`
-    // const val_str = url.searchParams.get(this.param) || '[]'
+    const url = new URL(window.location)
+    const my_arm = url.searchParams.get('asel')
+    this.param = `arm[${my_arm}]`
+    const val_str = url.searchParams.get(this.param) || '[]'
     // const checked_ar = JSON.parse(val_str)
     // console.log(checked_ar)
     // const my_idx = JSON.parse(this.element.dataset.indexes)
@@ -303,5 +303,3 @@ function base64EncArr (aBytes) {
   return sB64Enc.substr(0, sB64Enc.length - 2 + nMod3) + (nMod3 === 2 ? '' : nMod3 === 1 ? '=' : '==');
 
 }
-
-console.log(window.Stimulus);
