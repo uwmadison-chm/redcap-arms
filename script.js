@@ -183,7 +183,8 @@ Stimulus.register("checker", class extends Controller {
     this.param = `arm[${my_arm}]`
     const val_str = url.searchParams.get(this.param) || '[]'
     const checked_ar = JSON.parse(val_str)
-    const my_idx = [this.element.dataset.event, this.element.dataset.instrument]
+    console.log(checked_ar)
+    const my_idx = JSON.parse(this.element.dataset.indexes)
     this.element.checked = false
     for (const pair of checked_ar) {
       if (my_idx == pair) {
@@ -198,11 +199,17 @@ Stimulus.register("checker", class extends Controller {
   }
   
   store_checked_values() {
+    const url = new URL(window.location)
+
     const table = this.element.closest('table')
     const checked = table.querySelectorAll('input[type=checkbox]:checked')
+    let checked_ar = []
     for (const elt of checked) {
       console.log(elt)
+      checked_ar.push(JSON.parse(elt.dataset.indexes))
     }
+    url.searchParams.set(this.param, JSON.stringify(checked_ar))
+    history.replaceState({}, '', url)
   }
 })
 
