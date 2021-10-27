@@ -182,7 +182,10 @@ Stimulus.register("checker", class extends Controller {
     const url = new URL(window.location)
     const my_arm = url.searchParams.get('asel')
     this.param = `arm[${my_arm}]`
-    const val_str = url.searchParams.get(this.param) || '[]'
+    const b64_arr = url.searchParams.get(this.param) || ''
+    const checked_indexes = b64ToUint16(b64_arr)
+    const my_index = this.element.dataset.index + 0
+    
     // const checked_ar = JSON.parse(val_str)
     // console.log(checked_ar)
     // const my_idx = JSON.parse(this.element.dataset.indexes)
@@ -228,6 +231,14 @@ Stimulus.register("checker", class extends Controller {
 \*/
 
 /* Array of bytes to Base64 string decoding */
+
+function Uint16Tob64(ar) {
+  return base64EncArr(new Uint8Array(ar.buffer))
+}
+
+function b64ToUint16(str) {
+  return new Uint16Array(base64DecToArr(str).buffer)
+}
 
 function b64ToUint6 (nChr) {
 
