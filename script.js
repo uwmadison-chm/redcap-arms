@@ -214,9 +214,8 @@ Stimulus.register("checker", class extends Controller {
   }
 })
 
+function generate_
 
-// Stuff to turn arrays into reasonable-ish-length strings
-// maybe overkill
 
 /*\
 |*|
