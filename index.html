@@ -41,11 +41,21 @@
       <h1>
         REDCap Event Arm Thingy
       </h1>
-      <div class="armtable">
+      <div class="armtable"
+           data-controller="gridcopy">
         <div id = "armbuttons">
         </div>
-        <table id="mapping_table">
+        <table id="mapping_table"
+               data-controller="check_storer"
+               data-action="update->check_storer#store_checked_values">
         </table>
+        <button
+                data-action="gridcopy->copy">
+          Copy selections from
+        </button>
+        <select id="arm_copy"
+                data-target="gridcopy-copyFrom">
+        </select>
       </div>
       
       <div class="inputs">
@@ -90,17 +100,11 @@
       </div>
       
       <div id="outputs" data-controller="output" data-action="update->output#update">
-        <div class="event_output">
-          <label for="events_output">
-            Events to upload
-          </label>
-          <textarea id="events_output" name="events_output"></textarea>
+        <div class="events_output">
+          <a id="events_download" download="events.csv" href="#">Event list to upload to REDCap</a>
         </div>
         <div class="mapping_output">
-          <label for="mapping_output">
-            Instrument-event mappings to upload
-          </label>
-          <textarea id="mapping_output" name="mapping_output"></textarea>
+          <a id="mapping_download" download="events.csv" href="#">Event-instrument mapping to upload to REDCap</a>
         </div>        
       </div>      
     </div>

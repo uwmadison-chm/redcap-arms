@@ -17,7 +17,6 @@ Stimulus.register("arm-updater", class extends Controller {
     button_cont.innerHTML = ''
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     const url = new URL(window.location)
-    const a_str = url.searchParams.get(this.element.dataset.param) || ''
 
     console.log(arm_values)
     for (const [i, arm] of arm_values.entries()) {
@@ -39,6 +38,8 @@ Stimulus.register("arm-updater", class extends Controller {
     }
   }
 })
+
+
 
 Stimulus.register("urlsync", class extends Controller {
   /* 
@@ -204,14 +205,30 @@ Stimulus.register("checker", class extends Controller {
     const url = new URL(window.location)
 
     const table = this.element.closest('table')
-    const checked = Array.from(table.querySelectorAll('input[type=checkbox]:checked'))
+    table.dispatchEvent(new Event('update'))
+  }
+})
+
+Stimulus.register("check_storer", class extends Controller {
+  store_checked_values() {
+    const url = new URL(window.location)
+    const param = `arm[${url.searchParams.get('asel')}]`
+
+    const checked = Array.from(this.element.querySelectorAll('input[type=checkbox]:checked'))
     const checked_ar = checked.map(e => e.dataset.index)
     console.log(`checked indexes: ${checked_ar}`)
     const typed_ar = Uint16Array.from(checked_ar)
-    
-    url.searchParams.set(this.param, Uint16Tob64(typed_ar))
-    history.replaceState({}, '', url)
+
+    url.searchParams.set(param, Uint16Tob64(typed_ar))
+    history.replaceState({}, '', url)    
   }
+})
+
+Stimulus.register("check_storer", class extends Controller {
+  static targets = ['copyFrom']
+  connect() {
+    console.log
+  }      
 })
 
 Stimulus.register("output", class extends Controller {
