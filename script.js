@@ -225,7 +225,6 @@ Stimulus.register("output", class extends Controller {
 })
 
 
-
 /*\
 |*|
 |*|  Base64 / binary data / UTF-8 strings utilities
