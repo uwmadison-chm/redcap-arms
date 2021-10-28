@@ -233,7 +233,11 @@ function array_to_csv_data_url(array) {
 
 /* Convert a 2D array to CSV, readable by Excel */
 
-
+function format_cell(cell) {
+  const quoted = cell.replaceAll('"', '""')
+  const newlined = cell.replaceAll(/\r?\n/, "\r\n")
+  
+}
 
 /*\
 |*|
