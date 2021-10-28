@@ -225,6 +225,16 @@ Stimulus.register("output", class extends Controller {
 })
 
 
+
+function array_to_csv_data_url(array) {
+  const csv_txt = array_to_csv(array)
+  return `data:text/csv;base64,${btoa(csv_txt)}`
+}
+
+/* Convert a 2D array to CSV, readable by Excel */
+
+
+
 /*\
 |*|
 |*|  Base64 / binary data / UTF-8 strings utilities
