@@ -40,7 +40,9 @@ Stimulus.register("arm-updater", class extends Controller {
         console.log('Checking!')
         asel = arm
         radio.checked = true
-        radio.dispatchEvent('input')
+        // window.setTimeout(() => {radio.dispatchEvent(new Event('input'))}, 10)
+        url.searchParams.set('asel', arm)
+        history.replaceState({}, '', url)
       }
       button_cont.appendChild(label)
     }
