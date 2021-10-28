@@ -17,6 +17,7 @@ Stimulus.register("arm-updater", class extends Controller {
     button_cont.innerHTML = ''
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     const url = new URL(window.location)
+    let asel = url.searchParams.get('asel') || ''
 
     console.log(arm_values)
     for (const [i, arm] of arm_values.entries()) {
@@ -30,10 +31,16 @@ Stimulus.register("arm-updater", class extends Controller {
       radio.dataset.action = 'urlsync#update tablizer#build_table'
       radio.dataset.tableid = 'mapping_table'
       radio.value = arm
+      console.log(`asel is ${asel}`)
       let label = document.createElement('label')
       label.setAttribute('for', radio.id)
       label.innerText = arm
       button_cont.appendChild(radio)
+      if (asel === '') {
+        console.log('Checking!')
+        asel = arm
+        radio.checked = true
+      }
       button_cont.appendChild(label)
     }
   }
@@ -89,6 +96,7 @@ Stimulus.register("urlsync", class extends Controller {
   connect_radio(element) {
     const url = new URL(window.location)
     const val_str = url.searchParams.get(element.name) || ''
+    if (val_str === '') { return }
     if (element.value == val_str) {
       element.checked = true
     } else {
@@ -224,11 +232,11 @@ Stimulus.register("check_storer", class extends Controller {
   }
 })
 
-Stimulus.register("check_storer", class extends Controller {
+Stimulus.register("gridcopy", class extends Controller {
   static targets = ['copyFrom']
   connect() {
-    console.log("check_storer is connected")
-    console.log(this.hasCopyFromTarget)
+    console.log("gridcopy is connected")
+    console.log(this.copyFromTarget)
   }      
 })
 
