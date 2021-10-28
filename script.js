@@ -227,7 +227,8 @@ Stimulus.register("check_storer", class extends Controller {
 Stimulus.register("check_storer", class extends Controller {
   static targets = ['copyFrom']
   connect() {
-    console.log
+    console.log("check_storer is connected")
+    console.log(this.hasCopyFromTarget)
   }      
 })
 

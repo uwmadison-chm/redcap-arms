@@ -43,8 +43,7 @@
       </h1>
       <div class="armtable"
            data-controller="gridcopy">
-        <div id = "armbuttons">
-        </div>
+        <div id = "armbuttons"></div>
         <table id="mapping_table"
                data-controller="check_storer"
                data-action="update->check_storer#store_checked_values">
@@ -54,7 +53,7 @@
           Copy selections from
         </button>
         <select id="arm_copy"
-                data-target="gridcopy-copyFrom">
+                data-gridcopy-target="copyFrom">
         </select>
       </div>
       
