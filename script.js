@@ -191,7 +191,8 @@ Stimulus.register("tablizer", class extends Controller {
         checkbox.dataset.index = flat_idx
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
-        checkbox.dataset.action = 'input->grid-saver#toggleCheckbox'
+        checkbox.dataset.action = 'grid-url-sync#toggleCheckbox'
+        checkbox.dataset.gridUrlSyncTarget = 'checkBox'
         cell.appendChild(checkbox)
         row.appendChild(cell)
         flat_idx++
@@ -244,7 +245,7 @@ Stimulus.register("tablizer", class extends Controller {
 //   }
 // })
 
-Stimulus.register("grid-saver", class extends Controller {
+Stimulus.register("grid-url-sync", class extends Controller {
   
   static targets = ['checkBox']
   
@@ -253,7 +254,9 @@ Stimulus.register("grid-saver", class extends Controller {
   }
   
   toggleCheckbox(event) {
-    console.log(`toggling ${event.target}`)
+    const checked_boxes = this.checkBoxTargets.filter(box => box.checked)
+    const checked_
+    console.log(checked_boxes)
   }
   
   set_checks_from_url() {
