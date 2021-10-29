@@ -3,9 +3,7 @@
 import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
 window.Stimulus = Application.start()
 
-Stimulus.register("arm-updater", class extends Controller {
-  static targets = []
-  
+Stimulus.register("arm-updater", class extends Controller {  
   connect() {
     console.log("Connected an arm updater")
     this.update()
@@ -17,7 +15,9 @@ Stimulus.register("arm-updater", class extends Controller {
     button_cont.innerHTML = ''
     const arm_values = this.element.value.trim().split("\n").filter(a => a.length > 0)
     const url = new URL(window.location)
-    let asel = url.searchParams.get('asel') || ''
+    // So we can make sure one arm button is always selected 
+    let asel = url.searchParams.get('asel')
+    if (arm_values.indexOf(asel) < 0) { asel = '' }
 
     console.log(arm_values)
     for (const [i, arm] of arm_values.entries()) {
@@ -37,10 +37,9 @@ Stimulus.register("arm-updater", class extends Controller {
       label.innerText = arm
       button_cont.appendChild(radio)
       if (asel === '') {
-        console.log('Checking!')
+        // actually make sure one arm button is selected
         asel = arm
         radio.checked = true
-        // window.setTimeout(() => {radio.dispatchEvent(new Event('input'))}, 10)
         url.searchParams.set('asel', arm)
         history.replaceState({}, '', url)
       }
@@ -58,84 +57,110 @@ Stimulus.register("urlsync", class extends Controller {
   Currently works with textarea and radio inputs.
   */
   
-  
-  static targets = []
+  static values = { paramName: String}
   
   connect() {
+    if (!this.hasParamNameValue) {
+      this.paramNameValue = this.element.name
+    }
+    console.log(`param name is ${this.paramNameValue}`)
     const connect_fx = this.connect_for_element()
-    connect_fx(this.element)
+    connect_fx()
   }
   
   update() {
     const update_fx = this.update_for_element()
-    update_fx(this.element)
+    update_fx()
   }
   
   connect_for_element() {
     const map = {
       'textarea': this.connect_textarea,
-      'radio': this.connect_radio
+      'radio': this.connect_radio,
+      'generic': this.connect_contentEditable
     }
-    const fx = map[this.input_type()] || this.noop()
-    return fx
+    const input_type = this.input_type()
+    console.log(`Input type detected: ${input_type}`)
+    const fx = map[input_type] || this.noop()
+    return fx.bind(this)
   }
   
   update_for_element() {
     const map = {
       'textarea': this.update_textarea,
-      'radio': this.update_radio
+      'radio': this.update_radio,
+      'generic': this.update_contentEditable
     }
     const fx = map[this.input_type()] || this.noop()
-    return fx
+    return fx.bind(this)
   }
   
-  connect_textarea(element) {
-    const url = new URL(window.location)
-    const val_str = url.searchParams.get(element.name) || ''
+  connect_textarea() {
+    console.log(`this is ${this}`)
+    const val_str = this.get_param_value()
     const values = val_str.split(",")
-    element.value = values.join("\n")
+    this.element.value = values.join("\n")
   }
   
-  connect_radio(element) {
-    const url = new URL(window.location)
-    const val_str = url.searchParams.get(element.name) || ''
+  connect_radio() {
+    const val_str = this.get_param_value()
     if (val_str === '') { return }
-    if (element.value == val_str) {
-      element.checked = true
+    if (this.element.value == val_str) {
+      this.element.checked = true
     } else {
-      element.checked = false
+      this.element.checked = false
     }
+  }
+  
+  connect_contentEditable(element) {
+    const val = this.get_param_value()
+    if (val === '') { return }
+    this.element.innerText = val
   }
   
   update_textarea(element) {    
-    const url = new URL(window.location);
-    const val_str = element.value.trim().split("\n").join(",")
-    console.log(`setting ${element.name} to ${val_str}`)
-    url.searchParams.set(element.name, val_str)
-    history.replaceState({}, '', url)
+    const val_str = this.element.value.trim().split("\n").join(",")
+    this.set_param_value(val_str)
   }
   
   update_radio(element) {
-    const url = new URL(window.location);
-    const parent = element.parentElement
+    const parent = this.element.parentElement
     const sel = parent.querySelector("input[type=radio]:checked")
     let value = ""
     if (sel) {
       value = sel.value
     }
-    console.log(`setting ${element.name} to ${value}`)
-    url.searchParams.set(element.name, value)
-    history.replaceState({}, '', url)
+    this.set_param_value(value)
+  }
+  
+  update_contentEditable(element) {
+    this.set_param_value(this.element.innerText)
   }
   
   noop() {}
   
   input_type() {
+    const special_types = new Set(['select', 'textarea'])
     let nodeName = this.element.nodeName.toLowerCase()
-    if (nodeName == 'input') {
+    if (special_types.has(nodeName)) {
+      return nodeName
+    }
+    if (nodeName === 'input') {
       return this.element.type
     }
-    return nodeName
+    return 'generic'
+  }
+  
+  get_param_value() {
+    const url = new URL(window.location)
+    return url.searchParams.get(this.paramNameValue) || ''
+  }
+  
+  set_param_value(value) {
+    console.log(`setting ${this.paramNameValue} to ${value}`)
+    const url = new URL(window.location)
+    url.searchParams.set(this.paramNameValue, value)
+    history.replaceState({}, '', url)
   }
 })
 
@@ -166,8 +191,7 @@ Stimulus.register("tablizer", class extends Controller {
         checkbox.dataset.index = flat_idx
         checkbox.dataset.event = evt_idx
         checkbox.dataset.instrument = ins_idx
-        checkbox.dataset.controller = 'checker'
-        checkbox.dataset.action = 'click->checker#toggle'
+        checkbox.dataset.action = 'input->grid-saver#toggleCheckbox'
         cell.appendChild(checkbox)
         row.appendChild(cell)
         flat_idx++
@@ -188,39 +212,54 @@ Stimulus.register("tablizer", class extends Controller {
   }
 })
 
-Stimulus.register("checker", class extends Controller {
-  connect() {
-    console.log("It's-a-me!")
-    const url = new URL(window.location)
-    const my_arm = url.searchParams.get('asel')
-    this.param = `arm[${my_arm}]`
-    const b64_arr = url.searchParams.get(this.param) || ''
-    const checked_indexes = b64ToUint16(b64_arr)
-    console.log(`Found checked indexes: ${checked_indexes}`)
-    const my_index = parseInt(this.element.dataset.index)
+// Stimulus.register("checker", class extends Controller {
+//   connect() {
+//     console.log("It's-a-me!")
+//     const url = new URL(window.location)
+//     const my_arm = url.searchParams.get('asel')
+//     this.param = `arm[${my_arm}]`
+//     const b64_arr = url.searchParams.get(this.param) || ''
+//     const checked_indexes = b64ToUint16(b64_arr)
+//     console.log(`Found checked indexes: ${checked_indexes}`)
+//     const my_index = parseInt(this.element.dataset.index)
     
-    this.element.checked = false
-    for (const cidx of checked_indexes) {
-      if (my_index === cidx) {
-        this.element.checked = true
-      }
-    }
+//     this.element.checked = false
+//     for (const cidx of checked_indexes) {
+//       if (my_index === cidx) {
+//         this.element.checked = true
+//       }
+//     }
+//   }
+  
+//   toggle() {
+//     console.log('toggling')
+//     this.store_checked_values()
+//   }
+  
+//   store_checked_values() {
+//     const url = new URL(window.location)
+
+//     const table = this.element.closest('table')
+//     table.dispatchEvent(new Event('update'))
+//   }
+// })
+
+Stimulus.register("grid-saver", class extends Controller {
+  
+  static targets = ['checkBox']
+  
+  connect() {
+    // Don't do anything here actually 
   }
   
-  toggle() {
-    console.log('toggling')
-    this.store_checked_values()
+  toggleCheckbox() {
+    console.log(`toggling ${this.element}`)
   }
   
-  store_checked_values() {
-    const url = new URL(window.location)
-
-    const table = this.element.closest('table')
-    table.dispatchEvent(new Event('update'))
+  set_checks_from_url() {
+    console.log(this.checkBoxTargets)    
   }
-})
-
-Stimulus.register("check_storer", class extends Controller {
+  
   store_checked_values() {
     const url = new URL(window.location)
     const param = `arm[${url.searchParams.get('asel')}]`

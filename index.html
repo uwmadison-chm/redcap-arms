@@ -31,22 +31,26 @@
     <!-- Import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
 
-    <script type="module">
-    </script>
     <!-- Import the webpage's javascript file -->
-    <script src="/script.js" defer type="module"></script>
+    <script src="/script.js" type="module"></script>
   </head>
   <body>
     <div class="wrapper">
       <h1>
         REDCap Event Arm Thingy
       </h1>
+      <h2 contenteditable
+          data-controller="urlsync"
+          data-action="input->urlsync#update"
+          data-urlsync-param-name-value="proj">
+          Project Name (click to edit)
+      </h2>
       <div class="armtable"
            data-controller="gridcopy">
         <div id = "armbuttons"></div>
         <table id="mapping_table"
-               data-controller="check_storer"
-               data-action="update->check_storer#store_checked_values">
+               data-controller="grid-saver"
+               data-grid-saver-arm-param-value="asel">
         </table>
         <button
                 data-action="gridcopy->copy">
@@ -55,7 +59,6 @@
         <select id="arm_copy"
                 data-gridcopy-target="copyFrom"></select>
       </div>
-      
       <div class="inputs">
         <div class="arm_input">
           <label for="arm_list">
@@ -68,6 +71,7 @@
                     data-param="arms"
                     data-radiocontainer="armbuttons"
                     data-tableid="mapping_table"
+                    placeholder="one per line"
                     ></textarea>
         </div>
         <div class="event_input">
@@ -79,6 +83,7 @@
                     data-controller="urlsync tablizer"
                     data-action="urlsync#update tablizer#build_table"
                     data-tableid="mapping_table"
+                    placeholder="one per line"
                     ></textarea>
         </div>
 
@@ -92,19 +97,35 @@
                     data-controller="urlsync tablizer"
                     data-action="urlsync#update tablizer#build_table"
                     data-tableid="mapping_table"
+                    placeholder="one per line"
                     ></textarea>
         </div>
-
+        <div id="outputs" data-controller="output" data-action="update->output#update">
+          <div class="events_output">
+            <a id="events_download" download="events.csv" href="#">CSV for <strong>Define My Events</strong></a>
+          </div>
+          <div class="mapping_output">
+            <a id="mapping_download" download="events.csv" href="#">CSV for <strong>Designate Instruments for My Events</strong></a>
+          </div>        
+        </div>      
       </div>
-      
-      <div id="outputs" data-controller="output" data-action="update->output#update">
-        <div class="events_output">
-          <a id="events_download" download="events.csv" href="#">Event list to upload to REDCap</a>
-        </div>
-        <div class="mapping_output">
-          <a id="mapping_download" download="events.csv" href="#">Event-instrument mapping to upload to REDCap</a>
-        </div>        
-      </div>      
+      <section class="description">
+        <h3>
+          What is this?
+        </h3>
+        <p>
+          In REDCap, you may want to collect data from different instruments from participants in different arms of your study. For example, you might want to only collect information on how easy it is to stick with the intervention from your intervention group. A promising way to do this is to use REDCap's Arms feature in the Longitudinal Design module; however, using study arms requires that participants are assigned to an arm when enrolling in the study — so collecting some data before randomization doesn't work. Yes, this seems dumb to me. REDCap is weird sometimes.
+        </p>
+        <p>
+          A workaround is to use Events to simulate Arms. You can do this by hand, but if you have more than a handful of arms, events, and instruments, the interface gets very complicated very fast, and it's hard to really see what's going on. And that leads to bugs.
+        </p>
+        <p>
+          The goal of this project is to give an easier interface to use this hack. Copy a list of instrument names (you can get this from your Data Dictionary), name your arms, and list your events — each one per-line. Check the boxes for which instruments you want at each event in each arm, and then use the links to download CSV files for uploading to REDCap's <strong>Define My Events</strong> and <strong>Designate Instruments for My Events</strong> pages.
+        </p>
+        <p>
+          In this project, all data is stored in the URL. To save a configuration, bookmark it. You can send a link to someone and have them see what you're seeing, as well.
+        </p>
+      </section>
     </div>
   </body>
 </html>
