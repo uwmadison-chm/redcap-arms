@@ -252,8 +252,8 @@ Stimulus.register("grid-saver", class extends Controller {
     // Don't do anything here actually 
   }
   
-  toggleCheckbox() {
-    console.log(`toggling ${this.element}`)
+  toggleCheckbox(event) {
+    console.log(`toggling ${event.target}`)
   }
   
   set_checks_from_url() {
