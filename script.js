@@ -254,20 +254,23 @@ Stimulus.register("grid-url-sync", class extends Controller {
   }
   
   toggleCheckbox(event) {
-    const checked_boxes = this.checkBoxTargets.filter(box => box.checked)
-    console.log(checked_boxes)
+    this.store_checked_values()
   }
   
   set_checks_from_url() {
+    const url = new URL(window.location)
+    const param = `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
+    const b64Array = url.searchParams.get(param)
+    const checked_ar = b64ToUint16()
+
     console.log(this.checkBoxTargets)    
   }
   
   store_checked_values() {
     const url = new URL(window.location)
-    const param = `arm[${url.searchParams.get('asel')}]`
-
-    const checked = Array.from(this.element.querySelectorAll('input[type=checkbox]:checked'))
-    const checked_ar = checked.map(e => e.dataset.index)
+    const param = `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
+    const checked_boxes = this.checkBoxTargets.filter(box => box.checked)
+    const checked_ar = checked_boxes.map((box) => box.dataset.index)
     console.log(`checked indexes: ${checked_ar}`)
     const typed_ar = Uint16Array.from(checked_ar)
 
