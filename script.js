@@ -164,6 +164,28 @@ Stimulus.register("urlsync", class extends Controller {
   }
 })
 
+Stimulus.register("placeholder", class extends Controller {
+  static values = {
+    text: String
+    edited: Boolean
+  }
+  
+  static classes = ['placeholder', 'unedited']
+  
+  connect() {
+    console.log(`connected placeholder for ${this.element}`)
+    this.
+  }
+  
+  focus() {
+    console.log('focus')
+  }
+  
+  blur() {
+    console.log('blur')
+  }
+})
+
 Stimulus.register("tablizer", class extends Controller {
   connect() {
     console.log("tablizer is here")

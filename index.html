@@ -40,10 +40,10 @@
         REDCap Event Arm Thingy
       </h1>
       <h2 contenteditable
-          data-controller="urlsync"
-          data-action="input->urlsync#update"
-          data-urlsync-param-name-value="proj">
-          Project Name (click to edit)
+          data-controller="urlsync placeholder"
+          data-action="input->urlsync#update focus->placeholder#focus blur->placeholder#blur"
+          data-urlsync-param-name-value="proj"
+          data-placeholder-text-value="Project name (click to edit)">
       </h2>
       <div class="armtable"
            data-controller="gridcopy">
