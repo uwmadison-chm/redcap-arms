@@ -255,7 +255,6 @@ Stimulus.register("grid-url-sync", class extends Controller {
   
   toggleCheckbox(event) {
     const checked_boxes = this.checkBoxTargets.filter(box => box.checked)
-    const checked_
     console.log(checked_boxes)
   }
   
@@ -275,9 +274,11 @@ Stimulus.register("grid-url-sync", class extends Controller {
     url.searchParams.set(param, Uint16Tob64(typed_ar))
     history.replaceState({}, '', url)    
   }
+  
+  
 })
 
-Stimulus.register("gridcopy", class extends Controller {
+Stimulus.register("grid-copier", class extends Controller {
   static targets = ['copyFrom']
   connect() {
     console.log("gridcopy is connected")
