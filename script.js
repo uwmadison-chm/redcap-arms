@@ -116,6 +116,7 @@ Stimulus.register("urlsync", class extends Controller {
     const val = this.get_param_value()
     if (val === '') { return }
     this.element.innerText = val
+    this.element.dataset.placeholderEditedValue = "true"
   }
   
   update_textarea(element) {    
@@ -172,7 +173,9 @@ Stimulus.register("placeholder", class extends Controller {
   
   connect() {
     console.log(`connected placeholder for ${this.element}`)
-    if (!this.hasEditedValue) { this.editedValue = false }
+    if (this.element.innerText.trim() === '') {
+      this.editedValue = false
+    }
     this.setPlaceholder()
   }
   
@@ -191,16 +194,19 @@ Stimulus.register("placeholder", class extends Controller {
     console.log('focus')
     if (!this.editedValue) {
       console.log('Clearing')
-      this.element.innerText = ' '
+      this.element.innerText = ''
       let range = document.createRange()
+      let sel = window.getSelection()
       range.setStart(this.element, 0)
-      range.setEne(this.element, 0)
+      range.setEnd(this.element, 0)
+      sel.removeAllRanges()
+      sel.addRange(range)
     }
   }
   
   blur() {
     console.log('blur')
-    if (this.innerText.trim() === '') {
+    if (this.element.innerText.trim() === '') {
       this.editedValue = false
       this.setPlaceholder()
     }
