@@ -186,3 +186,7 @@ th, td {
 .dipped {
   transform: translateY(5px);
 }
+
+[contenteditable]:hover {
+  outline: 1px solid #666;
+}

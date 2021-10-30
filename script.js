@@ -166,23 +166,35 @@ Stimulus.register("urlsync", class extends Controller {
 
 Stimulus.register("placeholder", class extends Controller {
   static values = {
-    text: String
+    text: String,
     edited: Boolean
   }
   
-  static classes = ['placeholder', 'unedited']
-  
   connect() {
     console.log(`connected placeholder for ${this.element}`)
-    this.
+    if (!this.hasEditedValue) { this.editedValue = false }
+  }
+  
+  setPlaceholder() {
+    if (!this.editedValue || this.element.innerText.trim() === '') {
+      this.element.innerText = this.textValue
+    }    
+  }
+  
+  update() {
+    this.element.classList.remove('placeholder')
   }
   
   focus() {
     console.log('focus')
+    if (!this.editedValue) {
+      this.innerText = ''
+    }
   }
   
   blur() {
     console.log('blur')
+    if 
   }
 })
 
