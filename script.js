@@ -173,11 +173,13 @@ Stimulus.register("placeholder", class extends Controller {
   connect() {
     console.log(`connected placeholder for ${this.element}`)
     if (!this.hasEditedValue) { this.editedValue = false }
+    this.setPlaceholder()
   }
   
   setPlaceholder() {
     if (!this.editedValue || this.element.innerText.trim() === '') {
       this.element.innerText = this.textValue
+      this.element.classList.add('placeholder')
     }    
   }
   
@@ -188,13 +190,20 @@ Stimulus.register("placeholder", class extends Controller {
   focus() {
     console.log('focus')
     if (!this.editedValue) {
-      this.innerText = ''
+      console.log('Clearing')
+      this.element.innerText = ' '
+      let range = document.createRange()
+      range.setStart(this.element, 0)
+      range.setEne(this.element, 0)
     }
   }
   
   blur() {
     console.log('blur')
-    if 
+    if (this.innerText.trim() === '') {
+      this.editedValue = false
+      this.setPlaceholder()
+    }
   }
 })
 
