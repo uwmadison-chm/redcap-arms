@@ -356,13 +356,14 @@ Stimulus.register("armcopy-sync", class extends Controller {
   
   connect() {
     console.log("armcopy-sync is connected")
+    this.update()
   }
   
   update() {
     console.log(`Updating armcopy-sync, param: ${this.paramValue}`)
     const url = new URL(window.location)
     const armsText = url.searchParams.get(this.paramValue)
-    const armsList = armsText.split("\n")
+    const armsList = armsText.split(",")
     this.selectTarget.innerHTML = ''
     const blank = document.createElement("option")
     this.selectTarget.appendChild(blank)
