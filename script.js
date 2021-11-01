@@ -348,6 +348,10 @@ Stimulus.register("output", class extends Controller {
   }
 })
 
+Stimulus.register("armcopy-sync", class extends Controller {
+  static targets = ['']
+})
+
 /* Convert a 2D array to a CSV data URL */
 
 function array_to_csv_data_url(array) {

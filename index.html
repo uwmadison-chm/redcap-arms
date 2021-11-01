@@ -35,7 +35,8 @@
     <script src="/script.js" type="module"></script>
   </head>
   <body>
-    <div class="wrapper">
+    <div class="wrapper"
+         data-controller="armcopy-sync">
       <h2 contenteditable
           data-controller="urlsync placeholder"
           data-action="input->urlsync#update focus->placeholder#focus blur->placeholder#blur input->placeholder#update"
@@ -51,10 +52,11 @@
         </table>
         <button
                 data-action="gridcopy->copy">
-          Copy selections from
+          Copy selections to
         </button>
         <select id="arm_copy"
-                data-gridcopy-target="copyFrom"></select>
+                data-gridcopy-target="copyTo"
+                data-armcopy-sync-target="select"></select>
       </div>
       <div class="inputs">
         <div class="arm_input">
@@ -64,7 +66,8 @@
           <textarea id="arm_list"
                     name="as"
                     data-controller="urlsync arm-updater tablizer"
-                    data-action="urlsync#update arm-updater#update tablizer#build_table"
+                    data-action="urlsync#update arm-updater#update tablizer#build_table armcopy-sync#update"
+                    data-armcopy-sync-target="textarea"
                     data-param="arms"
                     data-radiocontainer="armbuttons"
                     data-tableid="mapping_table"
