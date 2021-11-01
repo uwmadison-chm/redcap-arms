@@ -349,7 +349,26 @@ Stimulus.register("output", class extends Controller {
 })
 
 Stimulus.register("armcopy-sync", class extends Controller {
-  static targets = ['']
+  static targets = ['select', 'textarea']
+  
+  connect() {
+    console.log("armcopy-sync is connected")
+  }
+  
+  update() {
+    const armsText = this.textarea.value.trim()
+    const armsList = arms.split("\n")
+    this.selectTarget.innerHTML = ''
+    const blank = document.createElement("option")
+    this.selectTarget.appendChild(blank)
+    for (arm of armsList) {
+      const opt = document.createElement("option")
+      opt.value = arm
+      opt.innerText = arm
+      this.selectTarget.appendChild(opt)
+    }
+    console.log(`Now selectTarget is ${this.selectTarget}`)
+  }
 })
 
 /* Convert a 2D array to a CSV data URL */
