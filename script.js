@@ -349,19 +349,24 @@ Stimulus.register("output", class extends Controller {
 })
 
 Stimulus.register("armcopy-sync", class extends Controller {
-  static targets = ['select', 'textarea']
+  static targets = ['select']
+  static values = {
+    param: String
+  }
   
   connect() {
     console.log("armcopy-sync is connected")
   }
   
   update() {
-    const armsText = this.textarea.value.trim()
-    const armsList = arms.split("\n")
+    console.log(`Updating armcopy-sync, param: ${this.paramValue}`)
+    const url = new URL(window.location)
+    const armsText = url.searchParams.get(this.paramValue)
+    const armsList = armsText.split("\n")
     this.selectTarget.innerHTML = ''
     const blank = document.createElement("option")
     this.selectTarget.appendChild(blank)
-    for (arm of armsList) {
+    for (const arm of armsList) {
       const opt = document.createElement("option")
       opt.value = arm
       opt.innerText = arm
