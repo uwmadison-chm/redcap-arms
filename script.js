@@ -300,6 +300,7 @@ Stimulus.register("grid-url-sync", class extends Controller {
   
   connect() {
     // Don't do anything here actually 
+    this.set_checks_from_url()
   }
   
   toggleCheckbox(event) {
@@ -308,24 +309,35 @@ Stimulus.register("grid-url-sync", class extends Controller {
   
   set_checks_from_url() {
     const url = new URL(window.location)
-    const param = `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
-    const b64Array = url.searchParams.get(param)
-    const checked_ar = b64ToUint16()
-
-    console.log(this.checkBoxTargets)    
+    console.log(`Setting checks from url, param = ${this.paramName}`)
+    const b64Array = url.searchParams.get(this.paramName)
+    console.log(b64Array)
+    const checked_ar = b64ToUint16(b64Array)
+    const boxes = this.checkBoxTargets
+    for (const box of boxes) {
+      box.checked = false
+    }
+    for (const chk_idx of checked_ar) {
+      boxes[chk_idx].checked = true
+    }
   }
   
   store_checked_values() {
     const url = new URL(window.location)
-    const param = `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
     const checked_boxes = this.checkBoxTargets.filter(box => box.checked)
     const checked_ar = checked_boxes.map((box) => box.dataset.index)
     console.log(`checked indexes: ${checked_ar}`)
     const typed_ar = Uint16Array.from(checked_ar)
 
-    url.searchParams.set(param, Uint16Tob64(typed_ar))
+    url.searchParams.set(this.paramName(), Uint16Tob64(typed_ar))
     history.replaceState({}, '', url)    
   }
+  
+  get paramName() {
+    const url = new URL(window.location)    
+    return `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
+  }
+  
   
   
 })
