@@ -248,7 +248,7 @@ Stimulus.register("tablizer", class extends Controller {
       }
       table.appendChild(row)
     }
-    table.dispatchEvent(new Event('update'))
+    table.dispatchEvent(new Event('initialize'))
   }
   
   make_event_header(events) {
@@ -307,7 +307,7 @@ Stimulus.register("grid-url-sync", class extends Controller {
     this.store_checked_values()
   }
   
-  set_checks_from_url() {
+  setChecksFromURL() {
     const url = new URL(window.location)
     console.log(`Setting checks from url, param = ${this.paramName}`)
     const b64Array = url.searchParams.get(this.paramName)
