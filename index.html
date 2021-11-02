@@ -45,19 +45,22 @@
           data-placeholder-text-value="Project name (click to edit)">
       </h2>
       <div class="armtable"
-           data-controller="gridcopy">
+           data-controller="grid-copier">
         <div id = "armbuttons"></div>
         <table id="mapping_table"
                data-controller="grid-url-sync"
                data-grid-url-sync-arm-param-value="asel">
         </table>
         <button
-                data-action="gridcopy->copy">
+                data-action="grid-copier->copy"
+                data-grid-copier-target="button"
+                disabled>
           Copy selections to
         </button>
         <select id="arm_copy"
-                data-gridcopy-target="copyTo"
-                data-armcopy-sync-target="select"></select>
+                data-grid-copier-target="select"
+                data-action="grid-copier->setButtonActive"
+                data-armcopy-sync-target="select"></select>          
       </div>
       <div class="inputs">
         <div class="arm_input">

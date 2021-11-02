@@ -331,10 +331,10 @@ Stimulus.register("grid-url-sync", class extends Controller {
 })
 
 Stimulus.register("grid-copier", class extends Controller {
-  static targets = ['copyFrom']
+  static targets = ['select', 'button']
   connect() {
-    console.log("gridcopy is connected")
-    console.log(this.copyFromTarget)
+    console.log(`grid-copier is connected: ${this.selectTarget} ${this.buttonTarget}`)
+    if (this.selectTarget.value.t)
   }      
 })
 
@@ -374,6 +374,12 @@ Stimulus.register("armcopy-sync", class extends Controller {
       this.selectTarget.appendChild(opt)
     }
     console.log(`Now selectTarget is ${this.selectTarget}`)
+  }
+})
+
+Stimulus.register('arm-copier', class extends Controller {
+  connect() {
+    console.log('registered the arm copier')
   }
 })
 
