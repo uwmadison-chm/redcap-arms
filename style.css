@@ -179,6 +179,22 @@ th, td {
   text-align: center;
 }
 
+th.rotate {
+  text-align: left;
+  height: 60px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: translate(10px, 18px) rotate(315deg);
+  width: 28px;
+}
+
+th.rotate > div > span {
+/*   border-bottom: 1px solid #CCC; */
+/*   padding: 5px 10px; */
+}
+
 /* Interactive image */
 .illustration:active {
   transform: translateY(5px);

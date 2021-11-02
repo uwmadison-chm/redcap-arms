@@ -47,12 +47,12 @@
       <div class="armtable"
            data-controller="grid-copier"
            data-gridUrlSyncArmParamValue="asel">
-        <div id = "armbuttons"></div>
         <table id="mapping_table"
                data-controller="grid-url-sync"
                data-grid-url-sync-arm-param-value="asel"
                data-action="initialize->grid-url-sync#setChecksFromURL">
         </table>
+        <div id = "armbuttons"></div>
         <button
                 data-action="grid-copier#copy"
                 data-grid-copier-target="button">

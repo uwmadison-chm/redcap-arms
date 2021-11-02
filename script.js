@@ -256,7 +256,8 @@ Stimulus.register("tablizer", class extends Controller {
     row.appendChild(document.createElement('th'))
     for(let ei = 0; ei < events.length; ei++) {
       let cell = document.createElement('th')
-      cell.innerText = events[ei]
+      cell.classList.add('rotate')
+      cell.innerHTML = `<div><span>${events[ei]}</div></span>`
       row.appendChild(cell)
     }
     return row
