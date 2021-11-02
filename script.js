@@ -248,6 +248,7 @@ Stimulus.register("tablizer", class extends Controller {
       }
       table.appendChild(row)
     }
+    table.dispatchEvent(new Event('update'))
   }
   
   make_event_header(events) {
@@ -299,8 +300,7 @@ Stimulus.register("grid-url-sync", class extends Controller {
   static targets = ['checkBox']
   
   connect() {
-    // Don't do anything here actually 
-    this.set_checks_from_url()
+    // Don't do anything here actually, the boxes aren't here yet
   }
   
   toggleCheckbox(event) {
@@ -314,10 +314,12 @@ Stimulus.register("grid-url-sync", class extends Controller {
     console.log(b64Array)
     const checked_ar = b64ToUint16(b64Array)
     const boxes = this.checkBoxTargets
+    console.log(boxes)
     for (const box of boxes) {
       box.checked = false
     }
     for (const chk_idx of checked_ar) {
+      console.log(chk_idx)
       boxes[chk_idx].checked = true
     }
   }
@@ -328,14 +330,15 @@ Stimulus.register("grid-url-sync", class extends Controller {
     const checked_ar = checked_boxes.map((box) => box.dataset.index)
     console.log(`checked indexes: ${checked_ar}`)
     const typed_ar = Uint16Array.from(checked_ar)
-
-    url.searchParams.set(this.paramName(), Uint16Tob64(typed_ar))
+    const b64Array = Uint16Tob64(typed_ar)
+    console.log(b64Array)
+    url.searchParams.set(this.paramName, b64Array)
     history.replaceState({}, '', url)    
   }
   
   get paramName() {
     const url = new URL(window.location)    
-    return `arm[${url.searchParams.get(this.gridUrlSyncArmParamValue)}]`
+    return `arm[${url.searchParams.get('asel')}]`
   }
   
   
