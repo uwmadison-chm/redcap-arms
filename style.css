@@ -175,8 +175,12 @@ h2 {
 /*   color: #2800FF; */
 }
 
-th, td {
+td {
   text-align: center;
+}
+
+th.row {
+  
 }
 
 th.rotate {
