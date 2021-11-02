@@ -334,17 +334,19 @@ Stimulus.register("grid-copier", class extends Controller {
   static targets = ['select', 'button']
   connect() {
     console.log(`grid-copier is connected: ${this.selectTarget} ${this.buttonTarget}`)
-    if (this.selectTarget.value.t)
-  }      
-})
-
-Stimulus.register("output", class extends Controller {
-  connect() {
-    console.log("haiiii")
+    this.setButtonActive()
   }
   
-  update() {
-    console.log("Updating outputs!")
+  setButtonActive() {
+    this.buttonTarget.disabled = true
+    console.log(this.selectTarget.value)
+    if (this.selectTarget.value.trim() !== '') {
+      this.buttonTarget.disabled = false
+    }
+  }
+  
+  copy() {
+    console.log("Copy is not implemented yet")
   }
 })
 
@@ -374,12 +376,6 @@ Stimulus.register("armcopy-sync", class extends Controller {
       this.selectTarget.appendChild(opt)
     }
     console.log(`Now selectTarget is ${this.selectTarget}`)
-  }
-})
-
-Stimulus.register('arm-copier', class extends Controller {
-  connect() {
-    console.log('registered the arm copier')
   }
 })
 
