@@ -40,7 +40,9 @@
                data-grid-url-sync-arm-param-value="asel"
                data-action="initialize->grid-url-sync#setChecksFromURL">
         </table>
-        <div id = "armbuttons"></div>
+        <div><label>Current arm:</label>
+        <span id="armbuttons"></span>
+        </div>
         <button
                 data-action="grid-copier#copy"
                 data-grid-copier-target="button">
@@ -52,21 +54,6 @@
                 data-armcopy-sync-target="select"></select>          
       </div>
       <div class="inputs">
-        <div class="arm_input">
-          <label for="arm_list">
-            Arms
-          </label>
-          <textarea id="arm_list"
-                    name="as"
-                    data-controller="urlsync arm-updater tablizer"
-                    data-action="urlsync#update arm-updater#update tablizer#build_table armcopy-sync#update"
-                    data-armcopy-sync-target="textarea"
-                    data-param="arms"
-                    data-radiocontainer="armbuttons"
-                    data-tableid="mapping_table"
-                    placeholder="one per line"
-                    ></textarea>
-        </div>
         <div class="event_input">
           <label for="event_list">
             Events
@@ -89,6 +76,21 @@
                     name="is"
                     data-controller="urlsync tablizer"
                     data-action="urlsync#update tablizer#build_table"
+                    data-tableid="mapping_table"
+                    placeholder="one per line"
+                    ></textarea>
+        </div>
+        <div class="arm_input">
+          <label for="arm_list">
+            Arms
+          </label>
+          <textarea id="arm_list"
+                    name="as"
+                    data-controller="urlsync arm-updater tablizer"
+                    data-action="urlsync#update arm-updater#update tablizer#build_table armcopy-sync#update"
+                    data-armcopy-sync-target="textarea"
+                    data-param="arms"
+                    data-radiocontainer="armbuttons"
                     data-tableid="mapping_table"
                     placeholder="one per line"
                     ></textarea>
