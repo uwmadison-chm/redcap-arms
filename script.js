@@ -415,9 +415,22 @@ Stimulus.register("redcap-import", class extends Controller {
     })
   }
   
-  importName() {
-    
+  importNameIfAsked() {
+    if (!this.importNameTarget.checked) { return }
   }
+
+  importInstrumentsIfAsked() {
+    if (!this.importInstrumentsTarget.checked) { return }
+  }
+
+  importEventsIfAsked() {
+    if (!this.importEventsTarget.checked) { return }
+  }
+
+  importArmsIfAsked() {
+    if (!this.importArmsTarget.checked) { return }
+  }
+
   
 })
 
