@@ -101,11 +101,11 @@
             To get this file, go to Other Functionality -> Download Metadata Only (XML) in REDCap.
           </p>
           <div>
-            <input type="checkbox" id="import-name">
+            <input type="checkbox" id="import-name" data-redcap-import-target="importName">
             <label for="import-name">Import name</label>
           </div>
           <div>
-            <input type="checkbox" id="import-instruments">
+            <input type="checkbox" id="import-instruments" data-redcap-import-target="importInstruments">
             <label for="import-instruments">Import instruments</label>
           </div>
           <div>
@@ -117,7 +117,7 @@
             <label for="import-arms">Import arms</label>            
           </div>
           <div>
-            <input type="file" id="import-file">
+            <input type="file" id="import-file" accept="application/xml">
           </div>
         </details>
         <div id="outputs" data-controller="output" data-action="update->output#update">
