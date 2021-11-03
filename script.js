@@ -396,6 +396,10 @@ Stimulus.register("armcopy-sync", class extends Controller {
   }
 })
 
+Stimulus.register("redcap-import", class extends Controller {
+  
+})
+
 /* Convert a 2D array to a CSV data URL */
 
 function array_to_csv_data_url(array) {
