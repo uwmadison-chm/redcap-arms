@@ -231,6 +231,7 @@ Stimulus.register("tablizer", class extends Controller {
     for(let ins_idx = 0; ins_idx < instruments.length; ins_idx++) {
       let row = document.createElement('tr')
       let cell = document.createElement('th')
+      cell.classList.add('row')
       cell.innerText = instruments[ins_idx]
       row.appendChild(cell)
       for (let evt_idx = 0; evt_idx < events.length; evt_idx++) {
