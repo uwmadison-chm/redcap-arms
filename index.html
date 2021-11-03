@@ -109,15 +109,19 @@
             <label for="import-instruments">Import instruments</label>
           </div>
           <div>
-            <input type="checkbox" id="import-events">
+            <input type="checkbox" id="import-events" data-redcap-import-target="importEvents">
             <label for="import-events">Import events</label>            
           </div>
           <div>
-            <input type="checkbox" id="import-arms">
+            <input type="checkbox" id="import-arms" data-redcap-import-target="importArms">
             <label for="import-arms">Import arms</label>            
           </div>
           <div>
-            <input type="file" id="import-file" accept="application/xml">
+            <input type="file"
+                   id="import-file"
+                   accept="application/xml"
+                   data-redcap-import-target="importFile"
+                   data-action="redcap-import#doImport">
           </div>
         </details>
         <div id="outputs" data-controller="output" data-action="update->output#update">

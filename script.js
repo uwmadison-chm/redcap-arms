@@ -398,6 +398,24 @@ Stimulus.register("armcopy-sync", class extends Controller {
 
 Stimulus.register("redcap-import", class extends Controller {
   
+  doImport(event) {
+    console.log(event.target)
+    event.target.files[0].text().then(text => {
+      var parser = new window.DOMParser()
+      this.rcDoc = parser.parseFromString(text, 'application/xml')
+      thisrcDoc
+    }
+  })
+
+
+    const parser = new window.DOMParser()
+  }
+  
+  importName() {
+    
+  }
+  
+  import
 })
 
 /* Convert a 2D array to a CSV data URL */
