@@ -27,6 +27,7 @@
          data-controller="armcopy-sync"
          data-armcopy-sync-param-value="as">
       <h2 contenteditable
+          id="project-name"
           data-controller="urlsync placeholder"
           data-action="input->urlsync#update focus->placeholder#focus blur->placeholder#blur input->placeholder#update"
           data-urlsync-param-name-value="proj"
@@ -95,7 +96,8 @@
                     placeholder="one per line"
                     ></textarea>
         </div>
-        <details data-controller="redcap-import">
+        <details data-controller="redcap-import"
+                 data-redcap-import-name-element-id-value="project-name">
           <summary>Import instrument / event data from REDCap XML</summary>
           <p>
             To get this file, go to <b>Other Functionality</b> -> <b>Download Metadata Only (XML)</b> in REDCap.

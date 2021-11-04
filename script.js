@@ -441,9 +441,12 @@ Stimulus.register("redcap-import", class extends Controller {
   }
   
   importNameIfAsked() {
-    const name = this.rcDoc.querySelector('StudyName').innerText
+    const name = this.rcDoc.querySelector('StudyName').innerHTML
     console.log(name)
     if (!this.importNameTarget.checked) { return }
+    const elt = document.getElementById(this.nameElementIdValue)
+    elt.innerHTML = name
+    elt.dispatchEvent(new Event('input'))
   }
 
   importInstrumentsIfAsked() {
