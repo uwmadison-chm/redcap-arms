@@ -431,16 +431,18 @@ Stimulus.register("redcap-import", class extends Controller {
     this.importFileTarget.files[0].text().then(text => {
       const parser = new window.DOMParser()
       this.rcDoc = parser.parseFromString(text, 'application/xml')
+      window.rcDoc = this.rcDoc
       console.log(this.rcDoc)
+      this.importNameIfAsked()
+      this.importInstrumentsIfAsked()
+      this.importEventsIfAsked()
+      this.importArmsIfAsked()
     })
-    this.importNameIfAsked()
-    this.importInstrumentsIfAsked()
-    this.importEventsIfAsked()
-    this.importArmsIfAsked()
   }
   
   importNameIfAsked() {
-    const name = this.rcDoc.
+    const name = this.rcDoc.querySelector('StudyName').innerText
+    console.log(name)
     if (!this.importNameTarget.checked) { return }
   }
 
