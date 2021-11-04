@@ -407,6 +407,12 @@ Stimulus.register("redcap-import", class extends Controller {
     'button'
   ]
   
+  static values = {
+    nameElementId: String,
+    instrumentsElementId: String,
+    eventsInstrumentId
+  }
+  
   connect() {
     this.setButtonActive()
   }
