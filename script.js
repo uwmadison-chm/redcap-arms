@@ -493,6 +493,10 @@ Stimulus.register("redcap-import", class extends Controller {
 
 })
 
+Stimulus.register('output', class extends Controller {
+  
+})
+
 function nestEventInstrumentIndex(index, num_events) {
   return [index % num_events, Math.floor(index / num_events)]
 }
