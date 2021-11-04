@@ -493,6 +493,12 @@ Stimulus.register("redcap-import", class extends Controller {
 
 })
 
+function nestEventInstrumentIndex(index, num_events) {
+  return [index % num_events, Math.floor(index / num_events)]
+}
+
+window.nestEventInstrumentIndex = nestEventInstrumentIndex
+
 /* Convert a 2D array to a CSV data URL */
 
 function array_to_csv_data_url(array) {
