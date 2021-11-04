@@ -1,6 +1,9 @@
 //"use strict";
 
 import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
+
+console.log(Papa)
+
 window.Stimulus = Application.start()
 
 Stimulus.register("arm-updater", class extends Controller {  
@@ -367,8 +370,9 @@ Stimulus.register("grid-copier", class extends Controller {
     const asel = url.searchParams.get('asel')
     const copyFromParam = `arm[${asel}]`
     const copyToParam = `arm[${this.selectTarget.value}]`
-    console.log(`${copyFromParam` -> `${copyToParam}`)
-
+    console.log(`${copyFromParam} -> ${copyToParam}`)
+    url.searchParams.set(copyToParam, url.searchParams.get(copyFromParam))
+    history.replaceState({}, '', url)
   }
 })
 
