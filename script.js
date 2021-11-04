@@ -363,7 +363,12 @@ Stimulus.register("grid-copier", class extends Controller {
   }
   
   copy() {
-    console.log("Copy is not implemented yet")
+    const url = new URL(window.location)
+    const asel = url.searchParams.get('asel')
+    const copyFromParam = `arm[${asel}]`
+    const copyToParam = `arm[${this.selectTarget.value}]`
+    console.log(`${copyFromParam` -> `${copyToParam}`)
+
   }
 })
 
@@ -462,7 +467,7 @@ Stimulus.register("redcap-import", class extends Controller {
   importEventsIfAsked() {
     if (!this.importEventsTarget.checked) { return }
     const eventsArms = Array.from(rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
-    const events = eventsArms.map(s => s.split("__")[0])
+    const events = Array.from(new Set(eventsArms.map(s => s.split("__")[0])))
     const valStr = events.join("\n")
     const elt = document.getElementById(this.eventsElementIdValue)
     elt.value = valStr
