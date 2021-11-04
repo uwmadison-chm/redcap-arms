@@ -410,7 +410,8 @@ Stimulus.register("redcap-import", class extends Controller {
   static values = {
     nameElementId: String,
     instrumentsElementId: String,
-    eventsInstrumentId
+    eventsInstrumentId: String,
+    armsInstrumentId: String
   }
   
   connect() {
@@ -432,9 +433,14 @@ Stimulus.register("redcap-import", class extends Controller {
       this.rcDoc = parser.parseFromString(text, 'application/xml')
       console.log(this.rcDoc)
     })
+    this.importNameIfAsked()
+    this.importInstrumentsIfAsked()
+    this.importEventsIfAsked()
+    this.importArmsIfAsked()
   }
   
   importNameIfAsked() {
+    const name = this.rcDoc.
     if (!this.importNameTarget.checked) { return }
   }
 
