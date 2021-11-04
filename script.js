@@ -451,6 +451,12 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importInstrumentsIfAsked() {
     if (!this.importInstrumentsTarget.checked) { return }
+    const instruments = Array.from(rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
+    const valStr = instruments.join("\n")
+    const elt = document.getElementById(this.instrumentsElementIdValue)
+    elt.value = valStr
+    elt.dispatchEvent(new Event('input'))
+
   }
 
   importEventsIfAsked() {
@@ -465,6 +471,14 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importArmsIfAsked() {
     if (!this.importArmsTarget.checked) { return }
+    const eventsArms = Array.from(rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
+    let arms = eventsArms.map(s => s.split("__")[1]).filter(e => e)
+    if (arms.length === 0) { arms = ['arm_1']}
+    const valStr = arms.join("\n")
+    const elt = document.getElementById(this.armsElementIdValue)
+    elt.value = valStr
+    elt.dispatchEvent(new Event('input'))
+
   }
 
   
