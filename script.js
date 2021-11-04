@@ -403,12 +403,25 @@ Stimulus.register("redcap-import", class extends Controller {
     'importInstruments', 
     'importEvents',
     'importArms',
-    'importFile'
+    'importFile',
+    'button'
   ]
   
-  doImport(event) {
-    console.log(event.target)
-    event.target.files[0].text().then(text => {
+  connect() {
+    this.setButtonActive()
+  }
+  
+  setButtonActive() {
+    if (this.importFileTarget.files[0]) {
+      this.buttonTarget.disabled = false
+    } else {
+     this.buttonTarget.disabled = true
+    }
+  }
+  
+  doImport() {
+    if (!this.importFileTarget.files[0]) { return }
+    this.importFileTarget.files[0].text().then(text => {
       const parser = new window.DOMParser()
       this.rcDoc = parser.parseFromString(text, 'application/xml')
       console.log(this.rcDoc)

@@ -223,3 +223,9 @@ th.rotate > div > span {
 [contenteditable].placeholder {
   color: #AAA;
 }
+
+details {
+  border: 1px solid #AAA;
+  padding: .25em;
+  background-color: white;
+}

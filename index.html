@@ -98,7 +98,7 @@
         <details data-controller="redcap-import">
           <summary>Import instrument / event data from REDCap XML</summary>
           <p>
-            To get this file, go to Other Functionality -> Download Metadata Only (XML) in REDCap.
+            To get this file, go to <b>Other Functionality</b> -> <b>Download Metadata Only (XML)</b> in REDCap.
           </p>
           <div>
             <input type="checkbox" id="import-name" data-redcap-import-target="importName">
@@ -121,7 +121,12 @@
                    id="import-file"
                    accept="application/xml"
                    data-redcap-import-target="importFile"
-                   data-action="redcap-import#doImport">
+                   data-action="redcap-import#setButtonActive">
+            <button data-redcap-import-target="button"
+                    data-action="redcap-import#doImport"
+                    disabled>
+              Import data
+            </button>
           </div>
         </details>
         <div id="outputs" data-controller="output" data-action="update->output#update">
