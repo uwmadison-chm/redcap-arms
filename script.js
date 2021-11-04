@@ -490,34 +490,14 @@ Stimulus.register("redcap-import", class extends Controller {
 
   }
 
-  
+
 })
 
 /* Convert a 2D array to a CSV data URL */
 
 function array_to_csv_data_url(array) {
-  const csv_txt = array_to_csv(array)
+  const csv_txt = Papa.unparse(array)
   return `data:text/csv;base64,${btoa(csv_txt)}`
-}
-
-/* Convert a 2D array to CSV, readable by Excel */
-
-function array_to_csv(array) {
-  const row_strings = array.map(row => {
-    return row.map(cell => format_cell(cell)).join(",")
-  })
-  return row_strings.join("\r\n")
-}
-
-/* Format a single cell for CSV output */
-
-function format_cell(cell) {
-  const quoted = cell.replaceAll('"', '""')
-  const newlined = quoted.replaceAll(/\r?\n/g, "\r\n")
-  if (newlined.search(/[,\n"]/) >= 0) {
-    return `"${newlined}"`
-  }
-  return newlined
 }
 
 /*\
