@@ -455,6 +455,11 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importEventsIfAsked() {
     if (!this.importEventsTarget.checked) { return }
+    const eventArray = Array.from(rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('Name'))
+    const valStr = eventArray.join("\n")
+    const elt = document.getElementById(this.eventsIdValue)
+    elt.value = valStr
+    elt.dispatchEvent(new Event('input'))
   }
 
   importArmsIfAsked() {
