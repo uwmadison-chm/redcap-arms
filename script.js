@@ -546,6 +546,12 @@ Stimulus.register('output', class extends Controller {
   
 })
 
+
+// Compute the cartesian product of arrays
+// https://stackoverflow.com/a/43053803
+function cartesian = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
+window.cartesian = cartesian
+
 function nestEventInstrumentIndex(index, num_events) {
   return [index % num_events, Math.floor(index / num_events)]
 }
