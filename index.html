@@ -135,7 +135,11 @@
             </button>
           </div>
         </details>
-        <div id="outputs" data-controller="output">
+        <div 
+             id="outputs" 
+             data-controller="output"
+             data-output-arms-param="as"
+             data-output-events-param="es">
           <div class="events_output">
             <a
                href='#'
@@ -146,7 +150,7 @@
           <div class="mapping_output">
             <a href='#'
                id="mapping_download"
-               download="events.csv"
+               download="instrument_mapping.csv"
                data-action="output#buildInstrumentMapping">CSV for <strong>Designate Instruments for My Events</strong></a>
           </div>        
         </div>      

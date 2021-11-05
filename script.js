@@ -498,7 +498,28 @@ Stimulus.register('output', class extends Controller {
     console.log("Connected output")
   }
   
+  buildEvents() {
+    console.log("Building event list CSV")
+  }
   
+  buildInstrumentMapping() {
+    console.log("Building instrument mapping CSV")
+  }
+  
+  get eventsFromURL() {
+    
+  }
+  
+  get armsFromURL() {
+    
+  }
+  
+  get instrumentsFromURL() {
+    let arm_mappings = {}
+    for (const arm of this.armsFromURL) {
+      
+    } 
+  }
 })
 
 function nestEventInstrumentIndex(index, num_events) {
