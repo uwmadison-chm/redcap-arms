@@ -528,7 +528,7 @@ Stimulus.register('output', class extends Controller {
         'form': row[2]
       }
     })
-
+    event.currentTarget.setAttribute('href', array_to_csv_data_url(outputArray))
   }
   
   armEventInstrumentMap() {
