@@ -507,7 +507,11 @@ Stimulus.register('output', class extends Controller {
   
   buildEvents() {
     console.log("Building event list CSV")
+    const fullMapping = this.armEventInstrumentMap()
+    const armEventStrings = fullMapping.map(row => `${row[0]}__${row[1]}`)
+    const uniqued = new Set(armEventStrings)
     
+    console.log(new Set(armEventStrings))
   }
   
   buildInstrumentMapping() {
@@ -516,7 +520,7 @@ Stimulus.register('output', class extends Controller {
   
   armEventInstrumentMap() {
     // Return an array of [arm, event, instrument]
-    output = []
+    const output = []
     for (const arm of this.armsFromURL) {
       const instrumentEvents = this.instrumentEventsForArm(arm)
       for (const [inst, ev] of instrumentEvents) {
@@ -547,20 +551,24 @@ Stimulus.register('output', class extends Controller {
   
   get eventsFromURL() {
     const url = new URL(window.location)
-    return url.searchParams.get(this.eventsParamValue).split(",")
+    return url.searchParams.get(this.eventsParamValue).split(",").map(e => rcSafe(e))
   }
   
   get armsFromURL() {
     const url = new URL(window.location)
-    return url.searchParams.get(this.armsParamValue).split(",")    
+    return url.searchParams.get(this.armsParamValue).split(",").map(e => rcSafe(e))
   }
   
   get instrumentsFromURL() {
     const url = new URL(window.location)
-    return url.searchParams.get(this.instrumentsParamValue).split(",")    
+    return url.searchParams.get(this.instrumentsParamValue).split(",").map(e => rcSafe(e))
   }
   
 })
+
+function rcSafe(str) {
+  return str.toLowerCase().replaceAll(/[^a-zA-Z0-9]+/g, '_')
+}
 
 
 // Compute the cartesian product of arrays
