@@ -522,6 +522,11 @@ Stimulus.register('output', class extends Controller {
     const indexesb64 = url.searchParams.get(param)
     if (!indexesb64) { return }
     const selectedIndexes = b64ToUint16(indexesb64)
+    const indexesTF = []
+    for (ix of selectedIndexes) {
+      indexesTF[ix] = true
+    }
+    output = []
   }
   
   get eventsFromURL() {
