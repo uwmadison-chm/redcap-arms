@@ -498,7 +498,8 @@ Stimulus.register('output', class extends Controller {
     armsParam: String,
     eventsParam: String,
     instrumentsParam: String,
-    armKeyParam: String
+    armKeyParam: String,
+    nameParam: String
   }
   
   connect() {
@@ -515,6 +516,7 @@ Stimulus.register('output', class extends Controller {
         'event_name': eStr, 'arm_num': '1', 'day_offset': '1', 'offset_min': '0', 'unique_event_name': `${eStr}_arm_1`, 'custom_event_label': ''
       }
     })
+    event.currentTarget.setAttribute("download", `${this.nameFromURL}_events.csv`)
     event.currentTarget.setAttribute("href", array_to_csv_data_url(outputArray))
   }
   
@@ -528,6 +530,7 @@ Stimulus.register('output', class extends Controller {
         'form': row[2]
       }
     })
+    event.currentTarget.setAttribute("download", `${this.nameFromURL}_instrument_mapping.csv`)
     event.currentTarget.setAttribute('href', array_to_csv_data_url(outputArray))
   }
   
@@ -558,6 +561,11 @@ Stimulus.register('output', class extends Controller {
     const i_e = cartesian(instruments, events)
     
     return i_e.filter((item, index) => indexesTF[index])
+  }
+  
+  get nameFromURL() {
+    const url = new URL(window.location)
+    return url.searchParams.get(this.nameParamValue) || 'project'
   }
   
   get eventsFromURL() {
