@@ -138,14 +138,16 @@
         <div id="outputs" data-controller="output">
           <div class="events_output">
             <a
+               href='#'
                id="events_download"
                download="events.csv"
-               data-action="output->buildEventCSV">CSV for <strong>Define My Events</strong></a>
+               data-action="output#buildEvents">CSV for <strong>Define My Events</strong></a>
           </div>
           <div class="mapping_output">
-            <a id="mapping_download"
+            <a href='#'
+               id="mapping_download"
                download="events.csv"
-               data-action="output->buildInstrumentMapping">CSV for <strong>Designate Instruments for My Events</strong></a>
+               data-action="output#buildInstrumentMapping">CSV for <strong>Designate Instruments for My Events</strong></a>
           </div>        
         </div>      
       </div>

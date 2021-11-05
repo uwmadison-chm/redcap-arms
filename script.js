@@ -494,6 +494,9 @@ Stimulus.register("redcap-import", class extends Controller {
 })
 
 Stimulus.register('output', class extends Controller {
+  connect() {
+    console.log("Connected output")
+  }
   
   
 })
