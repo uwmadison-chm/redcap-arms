@@ -507,35 +507,42 @@ Stimulus.register('output', class extends Controller {
   
   buildEvents() {
     console.log("Building event list CSV")
-    console.log(this.eventsFromURL)
-    console.log(this.instrumentsFromURL)
-    console.log(this.armsFromURL)
     
-    for (const arm of this.armsFromURL) {
-      console.log(arm)
-      console.log(this.eventInstrumentsForArm(arm))
-    }
   }
   
   buildInstrumentMapping() {
     console.log("Building instrument mapping CSV")
   }
   
-  eventInstrumentsForArm(arm) {
+  armEventInstrumentMap() {
+    // Return an array of [arm, event, instrument]
+    output = []
+    for (const arm of this.armsFromURL) {
+      const instrumentEvents = this.instrumentEventsForArm(arm)
+      for (const [inst, ev] of instrumentEvents) {
+        output.push([arm, ev, inst])
+      }
+    }
+    return output
+  }
+  
+  instrumentEventsForArm(arm) {
     const url = new URL(window.location)
-    const param = `${url.searchParams.get(this.armKeyParamValue)}[${arm}]`
+    const param = `${this.armKeyParamValue}[${arm}]`
+    console.log(param)
     const indexesb64 = url.searchParams.get(param)
     if (!indexesb64) { return }
     const selectedIndexes = b64ToUint16(indexesb64)
     const indexesTF = []
-    for (ix of selectedIndexes) { indexesTF[ix] = true }
+    for (const ix of selectedIndexes) { indexesTF[ix] = true }
     const events = this.eventsFromURL
     const instruments = this.instrumentsFromURL
     
-    const e_i = cartesian(events, instruments)
-    console.log(e_i)
+    // Need to do the [inst, ev] order to make the array indexes match up
+    const i_e = cartesian(instruments, events)
+    console.log(`i_e is ${i_e}`)
     
-    return e_i.filter((item, index) => indexesTF[index])
+    return i_e.filter((item, index) => indexesTF[index])
   }
   
   get eventsFromURL() {
