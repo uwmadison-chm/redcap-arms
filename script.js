@@ -498,7 +498,7 @@ Stimulus.register('output', class extends Controller {
     armsParam: String,
     eventsParam: String,
     instrumentsParam: String,
-    armkeyParam: String
+    armKeyParam: String
   }
   
   connect() {
@@ -517,7 +517,11 @@ Stimulus.register('output', class extends Controller {
   }
   
   eventInstrumentsForArm(arm) {
-    
+    const url = new URL(window.location)
+    const param = `${url.searchParams.get(this.armKeyParamValue)}[${arm}]`
+    const indexesb64 = url.searchParams.get(param)
+    if (!indexesb64) { return }
+    const selectedIndexes = b64ToUint16(indexesb64)
   }
   
   get eventsFromURL() {
