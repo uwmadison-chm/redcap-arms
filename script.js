@@ -505,17 +505,30 @@ Stimulus.register('output', class extends Controller {
     console.log("Connected output")
   }
   
-  buildEvents() {
+  buildEvents(event) {
     console.log("Building event list CSV")
     const fullMapping = this.armEventInstrumentMap()
     const armEventStrings = fullMapping.map(row => `${row[0]}__${row[1]}`)
     const uniqued = new Set(armEventStrings)
-    
-    console.log(new Set(armEventStrings))
+    const outputArray = Array.from(uniqued).map(eStr => {
+      return {
+        'event_name': eStr, 'arm_num': '1', 'day_offset': '1', 'offset_min': '0', 'unique_event_name': `${eStr}_arm_1`, 'custom_event_label': ''
+      }
+    })
+    event.currentTarget.setAttribute("href", array_to_csv_data_url(outputArray))
   }
   
   buildInstrumentMapping() {
     console.log("Building instrument mapping CSV")
+    const fullMapping = this.armEventInstrumentMap()
+    const outputArray = fullMapping.map(row => {
+      return {
+        'arm_num': '1',
+        'unique_event_name': `${row[0]}__${row[1]}_arm_1`,
+        'form': row[2]
+      }
+    })
+
   }
   
   armEventInstrumentMap() {
@@ -533,7 +546,6 @@ Stimulus.register('output', class extends Controller {
   instrumentEventsForArm(arm) {
     const url = new URL(window.location)
     const param = `${this.armKeyParamValue}[${arm}]`
-    console.log(param)
     const indexesb64 = url.searchParams.get(param)
     if (!indexesb64) { return }
     const selectedIndexes = b64ToUint16(indexesb64)
@@ -544,7 +556,6 @@ Stimulus.register('output', class extends Controller {
     
     // Need to do the [inst, ev] order to make the array indexes match up
     const i_e = cartesian(instruments, events)
-    console.log(`i_e is ${i_e}`)
     
     return i_e.filter((item, index) => indexesTF[index])
   }
