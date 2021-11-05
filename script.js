@@ -510,6 +510,11 @@ Stimulus.register('output', class extends Controller {
     console.log(this.eventsFromURL)
     console.log(this.instrumentsFromURL)
     console.log(this.armsFromURL)
+    
+    for (const arm of this.armsFromURL) {
+      console.log(arm)
+      console.log(this.eventInstrumentsForArm(arm))
+    }
   }
   
   buildInstrumentMapping() {
@@ -523,10 +528,14 @@ Stimulus.register('output', class extends Controller {
     if (!indexesb64) { return }
     const selectedIndexes = b64ToUint16(indexesb64)
     const indexesTF = []
-    for (ix of selectedIndexes) {
-      indexesTF[ix] = true
-    }
-    output = []
+    for (ix of selectedIndexes) { indexesTF[ix] = true }
+    const events = this.eventsFromURL
+    const instruments = this.instrumentsFromURL
+    
+    const e_i = cartesian(events, instruments)
+    console.log(e_i)
+    
+    return e_i.filter((item, index) => indexesTF[index])
   }
   
   get eventsFromURL() {
@@ -549,7 +558,7 @@ Stimulus.register('output', class extends Controller {
 
 // Compute the cartesian product of arrays
 // https://stackoverflow.com/a/43053803
-function cartesian = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
+const cartesian = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
 window.cartesian = cartesian
 
 function nestEventInstrumentIndex(index, num_events) {
