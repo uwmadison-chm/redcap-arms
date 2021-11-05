@@ -494,6 +494,9 @@ Stimulus.register("redcap-import", class extends Controller {
 })
 
 Stimulus.register('output', class extends Controller {
+  async foo() {
+    console.log("I am foo")
+  }
   
 })
 
