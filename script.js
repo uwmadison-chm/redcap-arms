@@ -494,12 +494,23 @@ Stimulus.register("redcap-import", class extends Controller {
 })
 
 Stimulus.register('output', class extends Controller {
+  static values = {
+    armsParam: String,
+    eventsParam: String,
+    instrumentsParam: String,
+    armkeyParam: String
+  }
+  
   connect() {
     console.log("Connected output")
   }
   
   buildEvents() {
     console.log("Building event list CSV")
+    console.log(this.eventsFromURL)
+    console.log(this.instrumentsParamValue)
+    console.log(this.instrumentsFromURL)
+    console.log(this.armsFromURL)
   }
   
   buildInstrumentMapping() {
@@ -507,11 +518,19 @@ Stimulus.register('output', class extends Controller {
   }
   
   get eventsFromURL() {
-    
+    const url = new URL(window.location)
+    return url.searchParams.get(this.eventsParamValue).split(",")
   }
   
   get armsFromURL() {
-    
+    const url = new URL(window.location)
+    return url.searchParams.get(this.armsParamValue).split(",")    
+  }
+  
+  get instrumentsFromURL() {
+    const url = new URL(window.location)
+    console.log(this.instrumentsParamValue)
+    return url.searchParams.get(this.instrumentsParamValue).split(",")    
   }
   
   get instrumentsFromURL() {
