@@ -516,6 +516,10 @@ Stimulus.register('output', class extends Controller {
     console.log("Building instrument mapping CSV")
   }
   
+  eventInstrumentsForArm(arm) {
+    
+  }
+  
   get eventsFromURL() {
     const url = new URL(window.location)
     return url.searchParams.get(this.eventsParamValue).split(",")
@@ -530,6 +534,7 @@ Stimulus.register('output', class extends Controller {
     const url = new URL(window.location)
     return url.searchParams.get(this.instrumentsParamValue).split(",")    
   }
+  
 })
 
 function nestEventInstrumentIndex(index, num_events) {
