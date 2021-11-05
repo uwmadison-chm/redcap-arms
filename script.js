@@ -508,7 +508,6 @@ Stimulus.register('output', class extends Controller {
   buildEvents() {
     console.log("Building event list CSV")
     console.log(this.eventsFromURL)
-    console.log(this.instrumentsParamValue)
     console.log(this.instrumentsFromURL)
     console.log(this.armsFromURL)
   }
@@ -529,15 +528,7 @@ Stimulus.register('output', class extends Controller {
   
   get instrumentsFromURL() {
     const url = new URL(window.location)
-    console.log(this.instrumentsParamValue)
     return url.searchParams.get(this.instrumentsParamValue).split(",")    
-  }
-  
-  get instrumentsFromURL() {
-    let arm_mappings = {}
-    for (const arm of this.armsFromURL) {
-      
-    } 
   }
 })
 
