@@ -509,7 +509,7 @@ Stimulus.register('output', class extends Controller {
   buildEvents(event) {
     console.log("Building event list CSV")
     const fullMapping = this.armEventInstrumentMap()
-    const armEventStrings = fullMapping.map(row => `${row[0]}__${row[1]}`)
+    const armEventStrings = fullMapping.map(row => `${row[1]}__${row[0]}`)
     const uniqued = new Set(armEventStrings)
     const outputArray = Array.from(uniqued).map(eStr => {
       return {
@@ -526,7 +526,7 @@ Stimulus.register('output', class extends Controller {
     const outputArray = fullMapping.map(row => {
       return {
         'arm_num': '1',
-        'unique_event_name': `${row[0]}__${row[1]}_arm_1`,
+        'unique_event_name': `${row[1]}__${row[0]}_arm_1`,
         'form': row[2]
       }
     })
