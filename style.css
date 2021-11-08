@@ -85,6 +85,8 @@ body {
   min-height: var(--wrapper-height);
   display: grid;
 /*   place-items: center; */
+  align-items: stretch;
+  justify-items: start;
   grid-template-areas:
     "header header"
     "inputs armtable"
@@ -95,6 +97,7 @@ body {
 
 .wrapper > h2 {
   grid-area: header;
+  justify-self: center;
 }
 
 .armtable {
@@ -103,11 +106,12 @@ body {
 
 .inputs {
   grid-area: inputs;
-  place-items: right;
+  justify-self: end;
 }
 
 .inputs textarea {
   width: 20em;
+  font-family: sans-serif;
 }
 
 .description {
