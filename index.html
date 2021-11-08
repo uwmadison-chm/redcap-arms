@@ -34,17 +34,19 @@
           data-urlsync-param-name-value="proj"
           data-placeholder-text-value="Project name (click to edit)">
       </h2>
-      <div class="armtable"
+      <section class="armtable"
            data-controller="grid-copier"
            data-gridUrlSyncArmParamValue="asel">
+        <div>
+          <label>Current arm:</label>
+          <span id="armbuttons"></span>
+        </div>
+
         <table id="mapping_table"
                data-controller="grid-url-sync"
                data-grid-url-sync-arm-param-value="asel"
                data-action="initialize->grid-url-sync#setChecksFromURL">
         </table>
-        <div><label>Current arm:</label>
-        <span id="armbuttons"></span>
-        </div>
         <button
                 data-action="grid-copier#copy"
                 data-grid-copier-target="button">
@@ -54,10 +56,10 @@
                 data-grid-copier-target="select"
                 data-action="grid-copier#setButtonActive"
                 data-armcopy-sync-target="select"></select>          
-      </div>
-      <div class="inputs">
+      </section>
+      <section class="inputs">
         <div class="event_input">
-          <label for="event_list">
+          <label for="event_list" class="ownline">
             Events
           </label>
           <textarea id="event_list"
@@ -66,11 +68,12 @@
                     data-action="urlsync#update tablizer#build_table"
                     data-tableid="mapping_table"
                     placeholder="one per line"
+                    rows="10"
                     ></textarea>
         </div>
 
         <div class="instrument_input">
-          <label for="instrument_list">
+          <label for="instrument_list" class="ownline">
             Instruments
           </label>
           <textarea
@@ -80,10 +83,11 @@
                     data-action="urlsync#update tablizer#build_table"
                     data-tableid="mapping_table"
                     placeholder="one per line"
+                    rows="15"
                     ></textarea>
         </div>
         <div class="arm_input">
-          <label for="arm_list">
+          <label for="arm_list" class="ownline">
             Arms
           </label>
           <textarea id="arm_list"
@@ -95,6 +99,7 @@
                     data-radiocontainer="armbuttons"
                     data-tableid="mapping_table"
                     placeholder="one per line"
+                    rows="5"
                     ></textarea>
         </div>
         <details data-controller="redcap-import"
@@ -157,7 +162,7 @@
                data-action="output#buildInstrumentMapping">CSV for <strong>Designate Instruments for My Events</strong></a>
           </div>        
         </div>      
-      </div>
+      </section>
       <section class="description">
         <h3>
           What is this?
