@@ -146,8 +146,36 @@ h2 {
 /*   color: #2800FF; */
 }
 
+table {
+  overflow: hidden;
+  padding-right: 70px;
+}
+
 td {
   text-align: center;
+  position: relative;
+}
+
+td:hover::before {
+  position: absolute;
+  background-color: #d1f7c8;
+  content: '';
+  height: 100%;
+  left: -5000px;
+  width: 10000px;
+  top: 0;
+  z-index: -2  
+}
+
+td:hover::after {
+  position: absolute;
+  background-color: #d1f7c8;
+  content: '';
+  height: 10000px;
+  top: -5000px;
+  left: 0;
+  width: 100%;
+  z-index: -3;
 }
 
 th.row {
