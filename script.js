@@ -511,9 +511,9 @@ Stimulus.register('output', class extends Controller {
     const fullMapping = this.armEventInstrumentMap()
     const armEventStrings = fullMapping.map(row => `${row[1]}__${row[0]}`)
     const uniqued = new Set(armEventStrings)
-    const outputArray = Array.from(uniqued).map(eStr => {
+    const outputArray = Array.from(uniqued).map((eStr, i) => {
       return {
-        'event_name': eStr, 'arm_num': '1', 'day_offset': '1', 'offset_min': '0', 'unique_event_name': `${eStr}_arm_1`, 'custom_event_label': ''
+        'event_name': eStr, 'arm_num': '1', 'day_offset': i, 'offset_min': '0', 'unique_event_name': `${eStr}_arm_1`, 'custom_event_label': ''
       }
     })
     event.currentTarget.setAttribute("download", `${this.nameFromURL}_events.csv`)
