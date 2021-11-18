@@ -500,7 +500,9 @@ Stimulus.register("redcap-import", class extends Controller {
   }
   
   imporEventDefToURL(eventDef) {
-    
+    const eventName = eventDef.getAttribute('redcap:EventName')
+    const 
+    const formDefs = eventDef.querySelectorAll('FormRef')
   }
 
 
