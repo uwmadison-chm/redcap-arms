@@ -489,6 +489,19 @@ Stimulus.register("redcap-import", class extends Controller {
     elt.dispatchEvent(new Event('input'))
 
   }
+  
+  importEventMappingIfAsked() {
+    if (!this.importMappingTarget.checked) { return }
+    const eventDefs = this.rcDoc.querySelectorAll("StudyEventDef")
+    for (const eventDef of eventDefs) {
+      this.importEventDefToURL(eventDef)
+    }
+    // Notify the table to update itself probably
+  }
+  
+  imporEventDefToURL(eventDef) {
+    
+  }
 
 
 })
