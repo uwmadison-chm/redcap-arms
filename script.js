@@ -460,7 +460,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importInstrumentsIfAsked() {
     if (!this.importInstrumentsTarget.checked) { return }
-    const instruments = Array.from(rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
+    const instruments = Array.from(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
     const valStr = instruments.join("\n")
     const elt = document.getElementById(this.instrumentsElementIdValue)
     elt.value = valStr
@@ -470,7 +470,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importEventsIfAsked() {
     if (!this.importEventsTarget.checked) { return }
-    const eventsArms = Array.from(rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
+    const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     const events = Array.from(new Set(eventsArms.map(s => s.split("__")[0])))
     const valStr = events.join("\n")
     const elt = document.getElementById(this.eventsElementIdValue)
@@ -480,7 +480,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importArmsIfAsked() {
     if (!this.importArmsTarget.checked) { return }
-    const eventsArms = Array.from(rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
+    const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     let arms = eventsArms.map(s => s.split("__")[1]).filter(e => e)
     if (arms.length === 0) { arms = ['arm_1']}
     const valStr = arms.join("\n")
@@ -501,7 +501,6 @@ Stimulus.register("redcap-import", class extends Controller {
   
   imporEventDefToURL(eventDef) {
     const eventName = eventDef.getAttribute('redcap:EventName')
-    const 
     const formDefs = eventDef.querySelectorAll('FormRef')
   }
 
