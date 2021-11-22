@@ -493,6 +493,7 @@ Stimulus.register("redcap-import", class extends Controller {
   importEventMappingIfAsked() {
     if (!this.importMappingTarget.checked) { return }
     const eventDefs = this.rcDoc.querySelectorAll("StudyEventDef")
+    const eventArms
     for (const eventDef of eventDefs) {
       this.importEventDefToURL(eventDef)
     }
