@@ -436,8 +436,8 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importArms() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
-    // The filter() trick makes the list unique
-    let arms = eventsArms.map(s => s.split("__")[1]).filter((elt, idx, ar) => ar.indexOf(elt) == idx)
+    // Convert to a Set to make the items unique
+    let arms = Array.from(new Set(eventsArms.map(s => s.split("__")[1])))
     if (arms.length === 0) { arms = ['arm_1']}
     const valStr = arms.join("\n")
     const elt = document.getElementById(this.armsElementIdValue)
