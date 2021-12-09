@@ -451,11 +451,10 @@ Stimulus.register("redcap-import", class extends Controller {
     * Look at StudyEventDef items
     * Split into arm, event pairs
     * We can't import mappings without importing arms and instruments and events too
-    * So we lose the checkboxes but that's okay
     * Okay so we look at StudyEventDef and redcap:EventName
     * That will give us event and arm names
     * They look like event__arm
-    * So we split on __, assume "arm_1" for blank arms
+    * Split on __, assume "arm_1" for blank arms
     * Also get instruments from FormDef and redcap:FormName, that will get
       instruments in form order
     * Invert that baby, get a form:index map
