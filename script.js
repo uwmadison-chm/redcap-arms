@@ -268,45 +268,9 @@ Stimulus.register("tablizer", class extends Controller {
   }
 })
 
-// Stimulus.register("checker", class extends Controller {
-//   connect() {
-//     console.log("It's-a-me!")
-//     const url = new URL(window.location)
-//     const my_arm = url.searchParams.get('asel')
-//     this.param = `arm[${my_arm}]`
-//     const b64_arr = url.searchParams.get(this.param) || ''
-//     const checked_indexes = b64ToUint16(b64_arr)
-//     console.log(`Found checked indexes: ${checked_indexes}`)
-//     const my_index = parseInt(this.element.dataset.index)
-    
-//     this.element.checked = false
-//     for (const cidx of checked_indexes) {
-//       if (my_index === cidx) {
-//         this.element.checked = true
-//       }
-//     }
-//   }
-  
-//   toggle() {
-//     console.log('toggling')
-//     this.store_checked_values()
-//   }
-  
-//   store_checked_values() {
-//     const url = new URL(window.location)
-
-//     const table = this.element.closest('table')
-//     table.dispatchEvent(new Event('update'))
-//   }
-// })
-
 Stimulus.register("grid-url-sync", class extends Controller {
   
   static targets = ['checkBox']
-  
-  connect() {
-    // Don't do anything here actually, the boxes aren't here yet
-  }
   
   toggleCheckbox(event) {
     this.store_checked_values()
@@ -408,10 +372,6 @@ Stimulus.register("armcopy-sync", class extends Controller {
 Stimulus.register("redcap-import", class extends Controller {
   
   static targets = [
-    'importName', 
-    'importInstruments', 
-    'importEvents',
-    'importArms',
     'importFile',
     'button'
   ]
@@ -450,7 +410,6 @@ Stimulus.register("redcap-import", class extends Controller {
   }
   
   importNameIfAsked() {
-    const name = this.rcDoc.querySelector('StudyName').innerHTML
     console.log(name)
     if (!this.importNameTarget.checked) { return }
     const elt = document.getElementById(this.nameElementIdValue)
@@ -459,7 +418,6 @@ Stimulus.register("redcap-import", class extends Controller {
   }
 
   importInstrumentsIfAsked() {
-    if (!this.importInstrumentsTarget.checked) { return }
     const instruments = Array.from(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
     const valStr = instruments.join("\n")
     const elt = document.getElementById(this.instrumentsElementIdValue)
@@ -469,7 +427,6 @@ Stimulus.register("redcap-import", class extends Controller {
   }
 
   importEventsIfAsked() {
-    if (!this.importEventsTarget.checked) { return }
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     const events = Array.from(new Set(eventsArms.map(s => s.split("__")[0])))
     const valStr = events.join("\n")
@@ -479,9 +436,9 @@ Stimulus.register("redcap-import", class extends Controller {
   }
 
   importArmsIfAsked() {
-    if (!this.importArmsTarget.checked) { return }
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
-    let arms = eventsArms.map(s => s.split("__")[1]).filter(e => e)
+    // The filter() trick makes the list unique
+    let arms = eventsArms.map(s => s.split("__")[1]).filter((elt, idx, ar) => ar.indexOf(elt) == idx)
     if (arms.length === 0) { arms = ['arm_1']}
     const valStr = arms.join("\n")
     const elt = document.getElementById(this.armsElementIdValue)
@@ -506,7 +463,6 @@ Stimulus.register("redcap-import", class extends Controller {
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
     
-    if (!this.importMappingTarget.checked) { return }
     const eventDefs = this.rcDoc.querySelectorAll("StudyEventDef")
     // const eventArms
     for (const eventDef of eventDefs) {
