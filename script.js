@@ -417,7 +417,7 @@ Stimulus.register("redcap-import", class extends Controller {
   }
 
   importInstruments() {
-    const instruments = Array.from(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
+    const instruments = uniques(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
     const valStr = instruments.join("\n")
     const elt = document.getElementById(this.instrumentsElementIdValue)
     elt.value = valStr
@@ -427,7 +427,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importEvents() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
-    const events = Array.from(new Set(eventsArms.map(s => s.split("__")[0])))
+    const events = uniques(eventsArms.map(s => s.split("__")[0]))
     const valStr = events.join("\n")
     const elt = document.getElementById(this.eventsElementIdValue)
     elt.value = valStr
@@ -437,7 +437,7 @@ Stimulus.register("redcap-import", class extends Controller {
   importArms() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     // Convert to a Set to make the items unique
-    let arms = Array.from(new Set(eventsArms.map(s => s.split("__")[1])))
+    let arms = uniques(eventsArms.map(s => s.split("__")[1]))
     if (arms.length === 0) { arms = ['arm_1']}
     const valStr = arms.join("\n")
     const elt = document.getElementById(this.armsElementIdValue)
@@ -494,7 +494,7 @@ Stimulus.register('output', class extends Controller {
     console.log("Building event list CSV")
     const fullMapping = this.armEventInstrumentMap()
     const armEventStrings = fullMapping.map(row => `${row[1]}__${row[0]}`)
-    const uniqued = new Set(armEventStrings)
+    const uniqued = uniques(armEventStrings)
     const outputArray = Array.from(uniqued).map((eStr, i) => {
       return {
         'event_name': eStr, 'arm_num': '1', 'day_offset': i, 'offset_min': '0', 'unique_event_name': `${eStr}_arm_1`, 'custom_event_label': ''
@@ -572,6 +572,11 @@ Stimulus.register('output', class extends Controller {
 function rcSafe(str) {
   return str.toLowerCase().replaceAll(/[^a-zA-Z0-9]+/g, '_')
 }
+
+function uniques(listlike) {
+  return Array.from(new Set(listlike))
+}
+window.uniques = uniques
 
 
 // Compute the cartesian product of arrays
