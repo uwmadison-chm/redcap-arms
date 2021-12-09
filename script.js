@@ -402,22 +402,21 @@ Stimulus.register("redcap-import", class extends Controller {
       this.rcDoc = parser.parseFromString(text, 'application/xml')
       window.rcDoc = this.rcDoc
       console.log(this.rcDoc)
-      this.importNameIfAsked()
-      this.importInstrumentsIfAsked()
-      this.importEventsIfAsked()
-      this.importArmsIfAsked()
+      this.importName()
+      this.importInstruments()
+      this.importEvents()
+      this.importArms()
     })
   }
   
-  importNameIfAsked() {
+  importName() {
     console.log(name)
-    if (!this.importNameTarget.checked) { return }
     const elt = document.getElementById(this.nameElementIdValue)
     elt.innerHTML = name
     elt.dispatchEvent(new Event('input'))
   }
 
-  importInstrumentsIfAsked() {
+  importInstruments() {
     const instruments = Array.from(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
     const valStr = instruments.join("\n")
     const elt = document.getElementById(this.instrumentsElementIdValue)
@@ -426,7 +425,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   }
 
-  importEventsIfAsked() {
+  importEvents() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     const events = Array.from(new Set(eventsArms.map(s => s.split("__")[0])))
     const valStr = events.join("\n")
@@ -435,7 +434,7 @@ Stimulus.register("redcap-import", class extends Controller {
     elt.dispatchEvent(new Event('input'))
   }
 
-  importArmsIfAsked() {
+  importArms() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     // The filter() trick makes the list unique
     let arms = eventsArms.map(s => s.split("__")[1]).filter((elt, idx, ar) => ar.indexOf(elt) == idx)
@@ -447,7 +446,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   }
   
-  importEventMappingIfAsked() {
+  importEventMapping() {
     /*
     * Look at StudyEventDef items
     * Split into arm, event pairs
