@@ -461,6 +461,7 @@ Stimulus.register("redcap-import", class extends Controller {
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
     
+    // Assume arms, events, and 
     const eventDefs = this.rcDoc.querySelectorAll("StudyEventDef")
     // const eventArms
     for (const eventDef of eventDefs) {
