@@ -418,6 +418,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
   importInstruments() {
     const instruments = uniques(this.rcDoc.querySelectorAll('FormDef')).map(elt => elt.getAttribute('redcap:FormName'))
+    this.instruments = instruments
     const valStr = instruments.join("\n")
     const elt = document.getElementById(this.instrumentsElementIdValue)
     elt.value = valStr
@@ -428,6 +429,7 @@ Stimulus.register("redcap-import", class extends Controller {
   importEvents() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     const events = uniques(eventsArms.map(s => s.split("__")[0]))
+    this.event = events
     const valStr = events.join("\n")
     const elt = document.getElementById(this.eventsElementIdValue)
     elt.value = valStr
@@ -439,6 +441,7 @@ Stimulus.register("redcap-import", class extends Controller {
     // Convert to a Set to make the items unique
     let arms = uniques(eventsArms.map(s => s.split("__")[1]))
     if (arms.length === 0) { arms = ['arm_1']}
+    this.arms = arms
     const valStr = arms.join("\n")
     const elt = document.getElementById(this.armsElementIdValue)
     elt.value = valStr
@@ -460,14 +463,8 @@ Stimulus.register("redcap-import", class extends Controller {
     * Invert that baby, get a form:index map
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
+    /// auuuughhhhhhhhhh I cannot do this I am too stupid by half
     
-    // Assume arms, events, and 
-    const eventDefs = this.rcDoc.querySelectorAll("StudyEventDef")
-    // const eventArms
-    for (const eventDef of eventDefs) {
-      this.importEventDefToURL(eventDef)
-    }
-    // Notify the table to update itself probably
   }
   
   imporEventDefToURL(eventDef) {
