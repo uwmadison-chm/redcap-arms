@@ -463,7 +463,15 @@ Stimulus.register("redcap-import", class extends Controller {
     * Invert that baby, get a form:index map
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
-    /// auuuughhhhhhhhhh I cannot do this I am too stupid by half
+    const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
+    for (const studyEventDef of studyEventDefs) {
+      const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
+      for (const formRef of formRefs) {
+        console.log(`${studyEventDef.getAttribute('redcap:EventName')}: ${formRef.getAttribute('redcap:FormName')}`)
+      }
+    }
+    
+    
     
   }
   
