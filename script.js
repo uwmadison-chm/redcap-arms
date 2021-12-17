@@ -406,6 +406,7 @@ Stimulus.register("redcap-import", class extends Controller {
       this.importInstruments()
       this.importEvents()
       this.importArms()
+      this.importEventMapping()
     })
   }
   
@@ -463,24 +464,19 @@ Stimulus.register("redcap-import", class extends Controller {
     * Invert that baby, get a form:index map
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
+    const instrumentIndexes = this.instruments.map((e, i) => )
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
+      const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
+      const event = eventArm[0]
+      const arm = eventArm[1] || 'arm_1'
+
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
       for (const formRef of formRefs) {
-        console.log(`${studyEventDef.getAttribute('redcap:EventName')}: ${formRef.getAttribute('redcap:FormName')}`)
+        console.log(`${}: ${formRef.getAttribute('redcap:FormName')}`)
       }
-    }
-    
-    
-    
+    } 
   }
-  
-  imporEventDefToURL(eventDef) {
-    const eventName = eventDef.getAttribute('redcap:EventName')
-    const formDefs = eventDef.querySelectorAll('FormRef')
-  }
-
-
 })
 
 Stimulus.register('output', class extends Controller {
