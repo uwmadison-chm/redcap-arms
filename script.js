@@ -464,7 +464,9 @@ Stimulus.register("redcap-import", class extends Controller {
     * Invert that baby, get a form:index map
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
-    const instrumentIndexes = this.instruments.map((e, i) => )
+    const instrumentIndexes = {}
+    const armMappings = {}
+    this.instruments.each((e, i) => { instrumentIndexes[e] = i})
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
