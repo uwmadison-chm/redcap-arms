@@ -467,12 +467,14 @@ Stimulus.register("redcap-import", class extends Controller {
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
     console.log("Importing event mapping!")
-    const instrumentIndexes = {}
+    const instEventFlatIndexes = {}
     const armMappings = {}
     let flatIdx = 0
     this.instruments.forEach(instrument => {
+      instEventFlatIndexes[instrument] = {}
       this.events.forEach(event => {
-        
+        instEventFlatIndexes[instrument][event] = flatIdx
+        flatIdx++
       })
     })
     // this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
