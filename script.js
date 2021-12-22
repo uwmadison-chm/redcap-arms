@@ -494,13 +494,18 @@ Stimulus.register("redcap-import", class extends Controller {
         armMappings[arm].push(idx)
       }
     }
-    armMappings.for((k, v) => {
-      console.log(k)
-      console.log(v)
-    })
+    for (let arm in armMappings) {
+      console.log(arm)
+      armMappings[arm].sort((a, b) => a - b)
+    }
+    console.log(armMappings)
+    this.armMappings = armMappings
+    this.storeArmMappingsInURL()
   }
   
-  
+  storeArmMappingsInURL() {
+    console.log(this)
+  }
 })
 
 Stimulus.register('output', class extends Controller {
