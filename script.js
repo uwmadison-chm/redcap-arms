@@ -406,7 +406,7 @@ Stimulus.register("redcap-import", class extends Controller {
       this.importInstruments()
       this.importEvents()
       this.importArms()
-      this.importEventMapping()
+      // this.importEventMapping()
     })
   }
   
@@ -440,9 +440,9 @@ Stimulus.register("redcap-import", class extends Controller {
   importArms() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     // Convert to a Set to make the items unique
-    let arms = uniques(eventsArms.map(s => s.split("__")[1]))
-    if (arms.length === 0) { arms = ['arm_1']}
+    let arms = uniques(eventsArms.map(s => s.split("__")[1] || 'arm_1'))
     this.arms = arms
+    console.log(`Setting arms to ${this.arms}`)
     const valStr = arms.join("\n")
     const elt = document.getElementById(this.armsElementIdValue)
     elt.value = valStr
@@ -475,7 +475,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
       for (const formRef of formRefs) {
-        console.log(`${}: ${formRef.getAttribute('redcap:FormName')}`)
+        console.log(`${formRef.getAttribute('redcap:FormName')}`)
       }
     } 
   }
