@@ -281,6 +281,7 @@ Stimulus.register("grid-url-sync", class extends Controller {
     console.log(`Setting checks from url, param = ${this.paramName}`)
     const b64Array = url.searchParams.get(this.paramName)
     console.log(b64Array)
+    if (!b64Array) { return }
     const checked_ar = b64ToUint16(b64Array)
     const boxes = this.checkBoxTargets
     console.log(boxes)
@@ -406,7 +407,7 @@ Stimulus.register("redcap-import", class extends Controller {
       this.importInstruments()
       this.importEvents()
       this.importArms()
-      // this.importEventMapping()
+      this.importEventMapping()
     })
   }
   
@@ -465,18 +466,21 @@ Stimulus.register("redcap-import", class extends Controller {
     * Invert that baby, get a form:index map
     * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
     */
+    console.log("Importing event mapping!")
     const instrumentIndexes = {}
     const armMappings = {}
-    this.instruments.each((e, i) => { instrumentIndexes[e] = i})
+    this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
+    console.log(instrumentIndexes)
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
       const event = eventArm[0]
       const arm = eventArm[1] || 'arm_1'
+      console.log(`Working on arm ${arm} and event ${event}`)
 
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
       for (const formRef of formRefs) {
-        console.log(`${formRef.getAttribute('redcap:FormName')}`)
+        console.log(`${arm}, ${event}: ${formRef.getAttribute('redcap:FormName')}`)
       }
     } 
   }
