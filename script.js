@@ -431,7 +431,8 @@ Stimulus.register("redcap-import", class extends Controller {
   importEvents() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     const events = uniques(eventsArms.map(s => s.split("__")[0]))
-    this.event = events
+    this.events = events
+    console.log(`set this.events to ${this.events}`)
     const valStr = events.join("\n")
     const elt = document.getElementById(this.eventsElementIdValue)
     elt.value = valStr
@@ -477,8 +478,7 @@ Stimulus.register("redcap-import", class extends Controller {
         flatIdx++
       })
     })
-    // this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
-    // console.log(instrumentIndexes)
+    console.log(instEventFlatIndexes)
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
