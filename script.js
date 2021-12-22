@@ -469,8 +469,8 @@ Stimulus.register("redcap-import", class extends Controller {
     console.log("Importing event mapping!")
     const instrumentIndexes = {}
     const armMappings = {}
-    this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
-    console.log(instrumentIndexes)
+    // this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
+    // console.log(instrumentIndexes)
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
@@ -480,6 +480,7 @@ Stimulus.register("redcap-import", class extends Controller {
 
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
       for (const formRef of formRefs) {
+        const instrument = formRef.getAttribute('redcap:FormName')
         console.log(`${arm}, ${event}: ${formRef.getAttribute('redcap:FormName')}`)
       }
     } 
