@@ -380,7 +380,8 @@ Stimulus.register("redcap-import", class extends Controller {
     eventsElementId: String,
     armsElementId: String,
     aselParameter: String,
-    armParameter: String
+    armParameter: String,
+    ieTableId: String
   }
   
   connect() {
@@ -511,9 +512,10 @@ Stimulus.register("redcap-import", class extends Controller {
       const typedArr = Uint16Array.from(selArr)
       const b64Arr = Uint16Tob64(typedArr)
       console.log(b64Arr)
-      url.searchParams.set(armParam, b64Array)
+      url.searchParams.set(armParam, b64Arr)
     })
-    
+    console.log(this.ieTableIdValue)
+    document.getElementById(this.ieTableIdValue).dispatchEvent(new Event('initialize'))
   }
 })
 
