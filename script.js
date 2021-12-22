@@ -310,9 +310,6 @@ Stimulus.register("grid-url-sync", class extends Controller {
     const url = new URL(window.location)    
     return `arm[${url.searchParams.get('asel')}]`
   }
-  
-  
-  
 })
 
 Stimulus.register("grid-copier", class extends Controller {
@@ -381,7 +378,9 @@ Stimulus.register("redcap-import", class extends Controller {
     nameElementId: String,
     instrumentsElementId: String,
     eventsElementId: String,
-    armsElementId: String
+    armsElementId: String,
+    aselParameter: String,
+    armParameter: String
   }
   
   connect() {
@@ -478,13 +477,13 @@ Stimulus.register("redcap-import", class extends Controller {
         flatIdx++
       })
     })
+    this.arms.forEach(arm => { armMappings[arm] = [] })
     console.log(instEventFlatIndexes)
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
     for (const studyEventDef of studyEventDefs) {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
       const event = eventArm[0]
       const arm = eventArm[1] || 'arm_1'
-      armMappings[arm] ||= []
       console.log(`Working on arm ${arm} and event ${event}`)
 
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
@@ -504,7 +503,17 @@ Stimulus.register("redcap-import", class extends Controller {
   }
   
   storeArmMappingsInURL() {
-    console.log(this)
+    const url = new URL(window.location)
+    url.searchParams.set(this.aselParameterValue, this.arms[0])
+    this.arms.forEach(arm => {
+      const armParam = `${this.armParameterValue}[${arm}]`
+      const selArr = this.armMappings[arm]
+      const typedArr = Uint16Array.from(selArr)
+      const b64Arr = Uint16Tob64(typedArr)
+      console.log(b64Arr)
+      url.searchParams.set(armParam, b64Array)
+    })
+    
   }
 })
 
