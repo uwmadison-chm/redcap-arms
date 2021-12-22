@@ -440,6 +440,7 @@ Stimulus.register("redcap-import", class extends Controller {
   importArms() {
     const eventsArms = Array.from(this.rcDoc.querySelectorAll('StudyEventDef')).map(elt => elt.getAttribute('redcap:EventName'))
     // Convert to a Set to make the items unique
+    // Also if there's no arm set, assume "arm_1" for a default
     let arms = uniques(eventsArms.map(s => s.split("__")[1] || 'arm_1'))
     this.arms = arms
     console.log(`Setting arms to ${this.arms}`)
