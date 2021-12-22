@@ -469,6 +469,12 @@ Stimulus.register("redcap-import", class extends Controller {
     console.log("Importing event mapping!")
     const instrumentIndexes = {}
     const armMappings = {}
+    let flatIdx = 0
+    this.instruments.forEach(instrument => {
+      this.events.forEach(event => {
+        
+      })
+    })
     // this.instruments.forEach((e, i) => { instrumentIndexes[e] = i })
     // console.log(instrumentIndexes)
     const studyEventDefs = Array.from(this.rcDoc.querySelectorAll('StudyEventDef'))
