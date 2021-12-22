@@ -289,7 +289,7 @@ Stimulus.register("grid-url-sync", class extends Controller {
       box.checked = false
     }
     for (const chk_idx of checked_ar) {
-      console.log(chk_idx)
+      // console.log(chk_idx)
       boxes[chk_idx].checked = true
     }
   }
@@ -511,10 +511,11 @@ Stimulus.register("redcap-import", class extends Controller {
       const selArr = this.armMappings[arm]
       const typedArr = Uint16Array.from(selArr)
       const b64Arr = Uint16Tob64(typedArr)
-      console.log(b64Arr)
+      // console.log(`setting ${armParam} to ${b64Arr}`)
+      
       url.searchParams.set(armParam, b64Arr)
     })
-    console.log(this.ieTableIdValue)
+    history.replaceState({}, '', url)
     document.getElementById(this.ieTableIdValue).dispatchEvent(new Event('initialize'))
   }
 })
