@@ -484,15 +484,23 @@ Stimulus.register("redcap-import", class extends Controller {
       const eventArm = studyEventDef.getAttribute('redcap:EventName').split("__")
       const event = eventArm[0]
       const arm = eventArm[1] || 'arm_1'
+      armMappings[arm] ||= []
       console.log(`Working on arm ${arm} and event ${event}`)
 
       const formRefs = Array.from(studyEventDef.querySelectorAll('FormRef'))
       for (const formRef of formRefs) {
         const instrument = formRef.getAttribute('redcap:FormName')
-        console.log(`${arm}, ${event}: ${formRef.getAttribute('redcap:FormName')}`)
+        const idx = instEventFlatIndexes[instrument][event]
+        armMappings[arm].push(idx)
       }
-    } 
+    }
+    armMappings.for((k, v) => {
+      console.log(k)
+      console.log(v)
+    })
   }
+  
+  
 })
 
 Stimulus.register('output', class extends Controller {
