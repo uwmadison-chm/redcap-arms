@@ -454,19 +454,10 @@ Stimulus.register("redcap-import", class extends Controller {
   }
   
   importEventMapping() {
-    /*
-    * Look at StudyEventDef items
-    * Split into arm, event pairs
-    * We can't import mappings without importing arms and instruments and events too
-    * Okay so we look at StudyEventDef and redcap:EventName
-    * That will give us event and arm names
-    * They look like event__arm
-    * Split on __, assume "arm_1" for blank arms
-    * Also get instruments from FormDef and redcap:FormName, that will get
-      instruments in form order
-    * Invert that baby, get a form:index map
-    * Then in each StudyEventDef, look at all FormRefs and redcap:FormName    
-    */
+    /* Grab the instrument-event mapping for each arm
+     * This requires this.arms, this.instruments, and this.arms to be set
+     * Basically, this duplicates a lot of the effort of grid-url-sync, but is 
+     */
     console.log("Importing event mapping!")
     const instEventFlatIndexes = {}
     const armMappings = {}
